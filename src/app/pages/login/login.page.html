@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="titulo">Roomies<ion-icon name="home-outline"></ion-icon></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-gradient"[fullscreen]="true">
+  <ion-grid>
+  <br>
+  
+  
+  <br>
+  <div class="imagen-container">
+  <div class="imagenredondeada">
+  <img src="/assets/img/Roomies.jpg">
+  </div>
+</div>
+<!-- <div class="mi-elemento"> -->
+  <br>
+  <div class="usuario-contraseña">
+  <ion-input [(ngModel)]="usuario" label="Correo Electrónico:" label-placement="floating" fill="outline" placeholder="Ingrese su correo electrónico"></ion-input>
+  <br>
+  <ion-input [(ngModel)]="contrasena" type="password" label="Contraseña:" label-placement="floating" fill="outline" placeholder="Ingrese su contraseña"></ion-input>
+  <br>
+  <div class="custom-border-button">
+  <ion-button  color="dark" expand="block" (click)="Login()" fill="solid" >Ingresar</ion-button>
+  </div>    
+ </div>
+  
+  <div class="registrateAqui">
+    <h6 (click)="registrateAqui()"><u>Registrate aquí</u></h6>
+  </div>
+  <div class="restContrasena">
+    <h6 (click)="restContrasena()"><u>¿Olvidaste tu contraseña?</u></h6>
+  </div>
+
+</ion-grid>
+</ion-content>

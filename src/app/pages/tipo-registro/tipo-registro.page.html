@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon (click)="back()" name="arrow-back-outline"></ion-icon>
+      Roomies
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-gradient" [fullscreen]="true">
+  <ion-grid>
+  <br>
+  <br>
+  <br>
+  <h1>Cuéntanos, ¿qué buscas?</h1>
+  <br>
+  <br>
+  <br>
+ 
+ 
+  <ion-button class="btn1" (click)="habitacion()" expand="block" size="large" fill="solid" >
+    Arrendar
+    <ion-icon slot="end" :icon="home"></ion-icon>
+  </ion-button>
+  <br>
+  <br>
+  <ion-button class="btn2" (click)="rommie()" expand="block" size="large" fill="solid" >
+    Rommie
+    <ion-icon slot="end" :icon="people"></ion-icon>
+  </ion-button>
+
+</ion-grid>
+</ion-content>
+

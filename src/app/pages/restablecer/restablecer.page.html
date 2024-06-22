@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon (click)="back()" name="arrow-back-outline"></ion-icon>
+      Roomies
+      <ion-icon name="home-outline"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  class="bg-gradient"[fullscreen]="true">
+  <ion-grid>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>¿Olvidaste tu contraseña?</ion-card-title>
+       
+      </ion-card-header>
+    
+      <ion-card-content>
+        <h2>Ingresa tu correo electrónico:</h2>
+        <br>
+        
+        <ion-input [(ngModel)]="correo" label="Correo Electrónico:" label-placement="floating" fill="outline" placeholder="Ingrese su correo electrónico"></ion-input>
+        <br>
+        <br>
+      </ion-card-content>
+    </ion-card>
+     <div class="boton">
+    <ion-button (click)="restablecer()" fill="solid" color="dark"expand="block">Enviar</ion-button>
+  </div>
+</ion-grid>
+</ion-content>

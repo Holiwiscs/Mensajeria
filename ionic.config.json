@@ -1,0 +1,7 @@
+{
+  "name": "roomiesApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
