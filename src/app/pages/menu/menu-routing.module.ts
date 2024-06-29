@@ -7,12 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: MenuPage
-  },
-  {
-    path: 'chats/:id',
-    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   }
-
 ];
 
 @NgModule({

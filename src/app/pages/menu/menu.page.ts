@@ -1,78 +1,155 @@
-import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
+import { Component, OnInit,AfterViewInit, viewChildren, ViewChildren, ElementRef, QueryList } from '@angular/core';
 import { HelperService } from 'src/app/services/helper.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable } from 'rxjs';
-import { ModalController, PopoverController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-
+import { DatabaseService } from 'src/app/services/database.service';
+import { Gesture, GestureController, IonCard } from '@ionic/angular';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
 })
-export class MenuPage implements OnInit {
+export class MenuPage implements AfterViewInit {
+   people=[
+    {
+      name:'juanitoculisuelto',
+      age:23,
+      img:'https://img.freepik.com/foto-gratis/chico-guapo-seguro-posando-contra-pared-blanca_176420-32936.jpg',
+      power:0
+    },
+    {
+      name:'elsapallo',
+      age:20,
+      img:'https://www.caritas.org.mx/wp-content/uploads/2019/02/cualidades-persona-humanitaria.jpg',
+      power:0
+    },
+    {
+     name:'marioneta',
+     age:18,
+     img:'https://media.gq.com.mx/photos/61780a08f865d472dfcd66c8/master/w_2560%2Cc_limit/GettyImages-1225777369.jpg',
+     power:0
+    }
+  ]
 
-  @ViewChild('new_chat') modal: ModalController;
-  @ViewChild('popover') popover: PopoverController;  
+  @ViewChildren(IonCard, { read: ElementRef })
+  cards!: QueryList<ElementRef>;
+  longPressActive=false;
 
+  uid: string | null = null;
   
-  segment = 'chats';
-  open_new_chat = false;
-  users = [
-    {id: 1, name: 'Felipe', photo: 'https://i.pravatar.cc/385'},
-    {id: 2, name: 'Paz', photo: 'https://i.pravatar.cc/386'},
-  ];
-  chatRooms = [
-    {id: 1, name: 'Felipe', photo: 'https://i.pravatar.cc/385'},
-    {id: 2, name: 'Paz', photo: 'https://i.pravatar.cc/386'},
-  ];
 
-  constructor(private helper:HelperService,
+  constructor(private gestureCtrl: GestureController,
+              private helper:HelperService,
               private auth: AngularFireAuth,
-              private router: Router
-  ) { }
+              private router: Router,
+              public dataBase: DatabaseService,
 
-  ngOnInit() {
+            ) { }
+
+  async ngOnInit() {
+    console.log("Estoy en mi perfil")
+    this.dataBase.stateUser().subscribe( res => {
+      console.log("en perfil - estado autenticacion -> ", res);
+      this.getUid();
+    })
+    
   }
 
-  logout(){
-    this.popover.dismiss();
+  ngAfterViewInit(){
+    const cardArray=this.cards?.toArray();
+    this.useLongPress(cardArray);
   }
 
-  onSegmentChanged(event:any){
-
+  async getUid(){
+    const uid = await this.dataBase.getUid();
+    if(uid){
+      this.uid = uid;
+      console.log(' Mi uid ->', this.uid);
+      this.getInfoUser();
+    } else {
+      console.log('no existe uid');
+    }
   }
 
-  newChat(){
-    this.open_new_chat = true;
-  }
 
-  onWillDismiss(event: any){
-
-  }
-
-  cancelar(){
-    this.modal.dismiss();
-    this.open_new_chat = false;
-  }
-
-  startChat(item){
-
+  getInfoUser(){
+    const path = 'Usuario';
+    const id = this.uid;
+    if(id){
+      this.dataBase.getDoc(path, id).subscribe( res => {
+        console.log("Los datos son ->", res);
+      });
+    } else {
+      console.log("UID es nulo")
+    }
   }
   
-  getChat(item){
-    this.router.navigate(['/','menu','chats', item?.id]);
-  }
 
+  useLongPress(cardArray:any[]){
+    for(let i =0; i < cardArray.length;i++){
+      const card=cardArray[i]
+      console.log('card',card);
+      const gesture: Gesture = this.gestureCtrl.create({
+        el: card.nativeElement,
+        gestureName: 'long-press',
+        onStart:ev=>{this.longPressActive =true;
+                    //  this.increasePower(i);
+        },
+        onEnd:ev=>{this.longPressActive =false;}
+      });
+      gesture.enable(true);
+    }
+
+  }
+  // increasePower(i){
+  //   setTimeout(()=>{
+  //     this.people[i].power++;
+  //   },200)
+
+  // }
+  // useTinderSwipe(cardArray){
+
+  // }
   async cerrarSesion(){
     var salir = await this.helper.Confirmar("¿Desea cerrar sesión?","Salir","Cancelar");
     if(salir == true){
       await this.auth.signOut();
-      //await this.router.navigateByUrl("login");
+      await this.router.navigateByUrl("login");
     }
   
   }
+  async perfil(){
+    await this.router.navigateByUrl('perfil');
+  }
+
+  async mensajeria(){
+    await this.router.navigateByUrl('mensajeria');
+  }
+
+
+//   setCardColor(x, element){
+ 
+//    let color ='';
+//    const abs = Math.abs (x);
+//    const min = Math. trunc (Math.min(16 * 16 - abs, 16 *16));
+//    const hexCode = this.decimalToHex(min, 2);
+//     if (x < 0){
+//     color = '#FF' + hexCode + hexCode;
+//      } else{
+//     color = '#' + hexCode + 'FF' + hexCode;
+//      }
+//      element.style.background = color;
+//    }
+
+//    decimalToHex (d, padding){
+//    let hex = Number (d).toString(16);
+//    padding = typeof padding === 'undefined" || padding === null ? (padding = 2) : padding;
+//    while (hex.length < padding){
+//      hex = '0' + hex;}
+//    return hex;
+// }
+
+
 
 }

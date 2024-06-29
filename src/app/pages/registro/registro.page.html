@@ -1,4 +1,5 @@
 <ion-header [translucent]="true">
+
   <ion-toolbar>
     <ion-title>
       <ion-icon (click)="back()" name="arrow-back-outline"></ion-icon>
@@ -14,64 +15,79 @@
       <ion-card-header>
         <ion-card-title>Registrate para ser parte de nuestra comunidad</ion-card-title>
         <br>
-        
+
         <ion-card-subtitle></ion-card-subtitle>
       </ion-card-header>
-    <br>
-    <br>
+      <br>
+      <br>
       <ion-card-content>
+
         <ion-item>
           <ion-input [(ngModel)]="nombre" label="Nombre:" label-placement="floating" fill="outline"></ion-input>
         </ion-item>
         <br>
         <ion-item>
-          <ion-input [(ngModel)]="apellidos" label="Apellidos:" label-placement="floating" fill="outline"></ion-input>
+          <ion-input [(ngModel)]="apellidos"  label="Apellidos:" label-placement="floating" fill="outline"></ion-input>
         </ion-item>
         <br>
         <ion-item>
-          <ion-input [(ngModel)]="nacimiento" type="date" label="Fecha de nacimiento:" label-placement="floating" fill="outline"></ion-input>
+          <ion-input [(ngModel)]="nacimiento" type="date" label="Fecha de nacimiento:" label-placement="floating"
+            fill="outline"></ion-input>
         </ion-item>
         <br>
         <ion-item>
-          <ion-input [(ngModel)]="edad" label="Qué edad tienes?:" labelplacement="floating"></ion-input>
+          <ion-input [(ngModel)]="edad" label="Edad:" label-placement="floating" fill="outline"></ion-input>
         </ion-item>
         <br>
+     
         <ion-item>
-          <ion-select [(ngModel)]="selegenero" label="¿Cuál es tu género?" fill="outline">
-            <ion-select-option value="femenino">Femenino</ion-select-option>
-            <ion-select-option value="masculino">Masculino</ion-select-option>
-            <ion-select-option value="noDecirlo">Prefiero no decirlo</ion-select-option>
-            <ion-select-option value="otro">Otro</ion-select-option>
+          
+          <ion-select [(ngModel)]="selegenero" label="¿Cuál es tu género?" label-placement="stacked" >
+            <ion-select-option  class="custom-option" value="femenino">Femenino</ion-select-option>
+            <ion-select-option class="custom-option"value="masculino">Masculino</ion-select-option>
+            <ion-select-option class="custom-option"value="noDecirlo">Prefiero no decirlo</ion-select-option>
+            <ion-select-option class="custom-option"value="otro">Otro</ion-select-option>
+          </ion-select>
+        
+        </ion-item>
+       <hr class="custom-divider" >
+        <br>
+        <ion-item>
+          <ion-select (ionChange)="mostrarComuna()" placeholder="Seleccione Región" [(ngModel)]="seleRegion"
+            >
+            <ion-select-option *ngFor="let i of regiones" [value]="i.id">{{i.region}}</ion-select-option>
           </ion-select>
         </ion-item>
-        <br>
-        <ion-item> 
-          <ion-select (ionChange)="mostrarComuna()" placeholder="Seleccione Región" [(ngModel)]="seleRegion" fill="outline">
-            <ion-select-option *ngFor="let i of regiones" [value]="i.id">{{i.region}}</ion-select-option>
-          </ion-select> 
-        </ion-item>
-        <ion-item> 
-          <ion-select [disabled]="disabledComuna" placeholder="Seleccione comuna" [(ngModel)]="seleComuna" fill="outline">
+        <hr class="custom-divider">
+        <ion-item>
+          <ion-select placeholder="Seleccione comuna" [(ngModel)]="seleComuna">
             <ion-select-option *ngFor="let i of comunas" [value]="i.comuna">{{i.comuna}}</ion-select-option>
-          </ion-select> 
+          </ion-select>
+        </ion-item>
+        <hr class="custom-divider">
+        <br>
+        <ion-item>
+          <ion-input [(ngModel)]="correo" label="Correo electrónico:" label-placement="floating"
+            fill="outline"></ion-input>
         </ion-item>
         <br>
         <ion-item>
-          <ion-input [(ngModel)]="correo" label="Correo electrónico:" label-placement="floating" fill="outline"></ion-input>
+          <ion-input [(ngModel)]="contrasena1" type="password" label="Escribe una Contraseña:"
+            label-placement="floating" fill="outline"></ion-input>
         </ion-item>
         <br>
         <ion-item>
-          <ion-input [(ngModel)]="contrasena1" type="password" label="Escribe una Contraseña:" label-placement="floating" fill="outline"></ion-input>
+          <ion-input [(ngModel)]="contrasena2" type="password" label="Confirma tu Contraseña:"
+            label-placement="floating" fill="outline"></ion-input>
         </ion-item>
-        <br>
-        <ion-item>
-          <ion-input [(ngModel)]="contrasena2" type="password" label="Confirma tu contraseña:" label-placement="floating" fill="outline"></ion-input>
-        </ion-item>
+
       </ion-card-content>
     </ion-card>
- 
- <br>
-    <ion-button (click)="registro()" fill="solid" color="dark"expand="block">Siguiente</ion-button>
-  
+
+    <br>
+    <div class="custom-border-button">
+    <ion-button fill="solid" (click)="registro()" color="dark" expand="block">Siguiente</ion-button>
+  </div>
   </ion-grid>
+
 </ion-content>

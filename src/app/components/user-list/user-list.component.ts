@@ -9,7 +9,7 @@ export class UserListComponent  implements OnInit {
 
   @Input() item: any;
   @Output() onClick: EventEmitter<any> = new EventEmitter();
-
+  
   constructor() { }
 
   ngOnInit() {}
@@ -17,5 +17,4 @@ export class UserListComponent  implements OnInit {
   redirect(){
     this.onClick.emit(this.item);
   }
-
 }

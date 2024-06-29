@@ -3,6 +3,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
@@ -28,14 +32,30 @@ const routes: Routes = [
     path: 'tipo-registro',
     loadChildren: () => import('./pages/tipo-registro/tipo-registro.module').then( m => m.TipoRegistroPageModule)
   },
+ 
   {
-    path: 'arrendatario',
-    loadChildren: () => import('./pages/arrendatario/arrendatario.module').then( m => m.ArrendatarioPageModule)
+    path: 'propietario',
+    loadChildren: () => import('./pages/propietario/propietario.module').then( m => m.PropietarioPageModule)
   },
   {
-    path: 'arrendador',
-    loadChildren: () => import('./pages/arrendador/arrendador.module').then( m => m.ArrendadorPageModule)
+    path: 'rommie',
+    loadChildren: () => import('./pages/rommie/rommie.module').then( m => m.RommiePageModule)
   },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'soporte',
+    loadChildren: () => import('./pages/soporte/soporte.module').then( m => m.SoportePageModule)
+  },
+  {
+    path: 'mensajeria',
+    loadChildren: () => import('./pages/mensajeria/mensajeria.module').then( m => m.MensajeriaPageModule)
+  },
+
+
+
   
  
 

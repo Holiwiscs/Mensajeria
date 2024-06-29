@@ -1,19 +1,16 @@
-// ion-content{
-//     --background: #E7C556;
-// }
 
-// ion-toolbar{
-//     --background: #E79256;
-// }
 
 ion-button{
     margin-left: 120px;
+    font-family: estres;
 }
 h3{
     margin-left: 50px;
+    font-family: estres;
 }
 h6{
     margin-left: 10px;
+    font-family: estres;
 }
 ion-input{
     width: 100%;
@@ -25,8 +22,30 @@ ion-input{
    --border-radius: 25px;
    --color: black;
    --font-size: 1em;
+   font-family: estres;
   }
- .botoncito{
-    
-   
-    margin-left: 2000px;}
+
+ion-card-title{
+    font-family: estres;
+}
+
+.custom-border-button {
+    border: 5px solid #acacac; /* Cambia el color y grosor del borde según tu necesidad */
+    border-radius: 10px; /* Ajusta el radio del borde si es necesario */
+    padding: 0px 0px; /* Ajusta el padding para que el botón tenga un buen tamaño */
+    background-color: transparent; /* Para hacer el fondo del botón transparente */
+    color:white; /* Cambia el color del texto del botón si es necesario */
+    font-size: 16px; /* Ajusta el tamaño del texto */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s; /* Añade una transición suave */
+    margin: 0px;
+  }
+  ion-button{
+    margin: 0;
+    font-family: estres;
+  }
+  .custom-border-button:hover {
+    background-color:#acacac; /* Cambia el color de fondo al pasar el mouse */
+    color: #ffffff; /* Cambia el color del texto al pasar el mouse */
+  }

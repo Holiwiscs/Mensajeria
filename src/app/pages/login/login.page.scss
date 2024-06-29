@@ -1,138 +1,127 @@
-// .mi-elemento {
-//   font-family: 'fuentedos', sans-serif;
-// }
+
 .custom-border-button {
-    border: 5px solid #acacac; /* Cambia el color y grosor del borde según tu necesidad */
-    border-radius: 20px; /* Ajusta el radio del borde si es necesario */
-    padding: 0px 0px; /* Ajusta el padding para que el botón tenga un buen tamaño */
-    background-color: transparent; /* Para hacer el fondo del botón transparente */
-    color:white; /* Cambia el color del texto del botón si es necesario */
-    font-size: 16px; /* Ajusta el tamaño del texto */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    box-sizing: border-box;
-    transition: background-color 0.3s, color 0.3s; /* Añade una transición suave */
-    margin: 0;
+  border: 5px solid #acacac; /* Cambia el color y grosor del borde según tu necesidad */
+  border-radius: 10px; /* Ajusta el radio del borde si es necesario */
+  padding: 0px 0px; /* Ajusta el padding para que el botón tenga un buen tamaño */
+  background-color: transparent; /* Para hacer el fondo del botón transparente */
+  color:white; /* Cambia el color del texto del botón si es necesario */
+  font-size: 16px; /* Ajusta el tamaño del texto */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  box-sizing: border-box;
+  transition: background-color 0.3s, color 0.3s; /* Añade una transición suave */
+  margin: 0;
+}
+
+.custom-border-button:hover {
+  background-color:#acacac; /* Cambia el color de fondo al pasar el mouse */
+  color: #ffffff; /* Cambia el color del texto al pasar el mouse */
+}
+ion-input{
+  width: 100%;
+ max-width: 350px;
+ margin-bottom: 20px;
+ --padding-start: 10px;
+ --padding-end: 10px;
+ --background: #b0b0b0;
+ --border-radius: 25px;
+ --color: black;
+ --font-size: 1em;
+ font-family: estres;
+}
+  .btn{
+    width: 150px;
+    height: 50px;
+    font-size: 16px;
+
+ }
+
+ .registrateAqui :hover{
+    color:white;
+    font-family: estres;
+    
+ }
+
+.restContrasena :hover{
+     color:white;
+    font-family: estres;
+
+ }
+
+ion-img{
+    margin-top: 10px;
+    margin-left: 140px;
+    margin-right: 140px;
+
+}
+
+
+
+ .registrateAqui{
+     margin-left: 135px;
+     font-family: estres;
+ }
+
+ .restContrasena{
+     margin-left: 95px;
+     font-family: estres;
+ }
+
+.imagenredondeada img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    
+
+}
+.imagen-container {
+    
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center;    /* Centra verticalmente */
+    height: 50%;           /* Asegúrate de que el contenedor ocupe el 100% del alto */
   }
-  
-  .custom-border-button:hover {
-    background-color:#acacac; /* Cambia el color de fondo al pasar el mouse */
-    color: #ffffff; /* Cambia el color del texto al pasar el mouse */
-  }
-  ion-input{
+ .usuario-contraseña{
+    margin: 30px;
+
+}
+
+  /*responsiva imagen*/
+  .imagen-redondeada img {
+    border-radius: 50%;
     width: 100%;
-   max-width: 350px;
-   margin-bottom: 20px;
-   --padding-start: 10px;
-   --padding-end: 10px;
-   --background: #b0b0b0;
-   --border-radius: 25px;
-   --color: black;
-   --font-size: 1em;
-  }
-    .btn{
-      width: 150px;
-      height: 50px;
-      font-size: 16px;
-  //   width: 290px;
-  //   height: 60px;
-  //    margin-left: 35px;
-  //    border: 3px solid #acacac;
-  //    border-radius: 15px;
-  //    padding: 0px 0px;
-  //    background-color: transparent;
-  //    color: #acacac;
-  
-   }
-  
-   .registrateAqui :hover{
-      color:white;
-      
-   }
-  
-  .restContrasena :hover{
-       color:white;
-      
-  
-   }
-  
-  ion-img{
-      margin-top: 10px;
-      margin-left: 140px;
-      margin-right: 140px;
-  
+    max-width: 200px;
+    height: auto;
   }
   
-  //  ion-content{
-  //     --background: #E7C556;
-  //  }
-  
-  //  ion-toolbar{
-  //      --background: #E79256;
-  //  }
-  
-   .registrateAqui{
-       margin-left: 160px;
-   }
-  
-   .restContrasena{
-       margin-left: 120px;
-   }
-  
-  .imagenredondeada img {
-      border-radius: 50%;
-      width: 200px;
-      height: 200px;
-      
-  
-  }
-  .imagen-container {
-      
-      display: flex;
-      justify-content: center; /* Centra horizontalmente */
-      align-items: center;    /* Centra verticalmente */
-      height: 50%;           /* Asegúrate de que el contenedor ocupe el 100% del alto */
-    }
-   .usuario-contraseña{
-      margin: 30px;
-  
-  }
-  
-    /*responsiva imagen*/
+  @media (min-width: 576px) {
     .imagen-redondeada img {
-      border-radius: 50%;
-      width: 100%;
+      max-width: 150px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .imagen-redondeada img {
       max-width: 200px;
-      height: auto;
     }
-    
-    @media (min-width: 576px) {
-      .imagen-redondeada img {
-        max-width: 150px;
-      }
-    }
-    
-    @media (min-width: 768px) {
-      .imagen-redondeada img {
-        max-width: 200px;
-      }
-    }
-    
-    @media (min-width: 992px) {
-      .imagen-redondeada img {
-        max-width: 250px;
-      }
-    }
-    
-    @media (min-width: 1200px) {
-      .imagen-redondeada img {
-        max-width: 300px;
-      }
-    }
+  }
   
-    /*responsividad texto y boton*/
-     
-  
-  
-    ion-button{
-      margin: 0;
+  @media (min-width: 992px) {
+    .imagen-redondeada img {
+      max-width: 250px;
     }
+  }
+  
+  @media (min-width: 1200px) {
+    .imagen-redondeada img {
+      max-width: 300px;
+    }
+  }
+
+  /*responsividad texto y boton*/
+   
+
+
+  ion-button{
+    margin: 0;
+    font-family: estres;
+  }

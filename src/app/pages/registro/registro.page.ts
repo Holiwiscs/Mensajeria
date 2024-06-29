@@ -4,6 +4,10 @@ import { HelperService } from 'src/app/services/helper.service';
 import { Region } from 'src/app/models/region';
 import { Comuna } from 'src/app/models/comuna';
 import { LocationService } from 'src/app/services/location.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { LoadingController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/storage.service';
+import { DatabaseService } from 'src/app/services/database.service';
 
 
 @Component({
@@ -17,7 +21,7 @@ export class RegistroPage implements OnInit {
 
   nombre: string ="";
   apellidos: string ="";
-  nacimiento: string ="";
+  nacimiento: string="";
   selegenero: boolean = false;
   femenino:boolean = false;
   masculino:boolean = false;;
@@ -27,17 +31,26 @@ export class RegistroPage implements OnInit {
   correo: string ="";
   contrasena1: string ="";
   contrasena2: string ="";
+  
 
   regiones:Region [] = [];
   comunas:Comuna [] = [];
-  seleComuna:string ="";
+  seleComuna:number=0;
   seleRegion:number=0;
   disabledComuna:boolean = true;
+
+  
+
+  
 
 
   constructor(private router: Router,
               private helper: HelperService,
-              private locationService:LocationService) 
+              private locationService:LocationService,
+              private auth: AngularFireAuth,
+              private loaderController:LoadingController,
+              private storage: StorageService,
+              private database: DatabaseService ) 
   {}
 
  
@@ -112,19 +125,36 @@ export class RegistroPage implements OnInit {
     if(this.contrasena1 !== this.contrasena2) {
       await this.helper.mostrarAlerta("Las contraseñas no coinciden.", "Información");
       return;
+    } 
+    
+    const req = await this.auth.createUserWithEmailAndPassword(this.correo, this.contrasena2);
+    if(req){
+      console.log("Exito al crear usuario");
+      const path = "Usuario";
+      const id = req.user.uid
+      //await this.database.createDoc(this.database, path, id);
+      await this.database.agregarUsuario({
+        apellido:this.apellidos, 
+        comuna: this.seleComuna,
+        region: this.seleRegion,
+        correo: this.correo,
+        edad: this.edad,
+        genero: this.masculino,
+        nacimiento: this.nacimiento,
+        nombre: this.nombre,
+        uid: id
+      });
+      
+      this.router.navigateByUrl('tipo-registro');
+
+      }
     }
+   
 
     
-    
-      await this.router.navigateByUrl('tipo-registro');
-    
-
-    
-  }
-
- 
   
 
+ 
   async back(){
     await this.router.navigateByUrl('login');
   }
@@ -135,4 +165,3 @@ export class RegistroPage implements OnInit {
 
  
 }
-
