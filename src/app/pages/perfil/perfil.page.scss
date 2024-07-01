@@ -65,3 +65,34 @@ h1{
     padding: 10px;
     border-top: 1px solid #eee;
   }
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -5px;
+  }
+  
+  .gallery-row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  .gallery-col {
+    flex: 1 1 50%;
+    max-width: 50%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  
+  .gallery-col ion-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-col ion-img:hover {
+    transform: scale(1.05);
+  }
+  

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { usuarioPf } from '../models/usuario';
 import { descripcionU } from '../models/descripcion';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class DatabaseService {
 
   constructor(private firestore: AngularFirestore,
               private authfirebase: AngularFireAuth,
+              private storage: AngularFireStorage // Agrega esto
   ) { }
 
 
@@ -71,9 +73,32 @@ export class DatabaseService {
   // // //     return null;
   // // //   }
   // // // }
+  uploadPhoto(file: File, userId: string, photoIndex: number): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const filePath = `users/${userId}/photo_${photoIndex}`;
+      const fileRef = this.storage.ref(filePath);
+      const uploadTask = this.storage.upload(filePath, file);
+
+      uploadTask.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(url => {
+            resolve(url);
+          }, err => reject(err));
+        })
+      ).subscribe();
+    });
+  }
+
+  async deletePhoto(photoUrl: string, userId: string, photoIndex: number): Promise<void> {
+    const filePath = `users/${userId}/photo_${photoIndex}`;
+    await this.storage.refFromURL(photoUrl).delete().toPromise();
+  }
+
+  updateUserProfilePhotos(userId: string, photoUrls: string[]): Promise<void> {
+    return this.firestore.collection('Usuario').doc(userId).update({ photos: photoUrls });
+  }
 
   createDoc(data: any, path: string, id: string) {
-
     const collection = this.firestore.collection(path);
     return collection.doc(id).set(data);
   }
@@ -83,7 +108,6 @@ export class DatabaseService {
   }
 
   getCollection<tipo>(path: string) {
-
     const collection = this.firestore.collection<tipo>(path);
     return collection.valueChanges();
 
@@ -97,4 +121,13 @@ export class DatabaseService {
     return this.authfirebase.authState;
   }
 
+  // Método para establecer un documento
+  async setDoc(collectionPath: string, docId: string, data: any): Promise<void> {
+    try {
+      await this.firestore.collection(collectionPath).doc(docId).set(data);
+    } catch (error) {
+      console.error('Error setting document: ', error);
+      throw error;
+    }
+  }
 }

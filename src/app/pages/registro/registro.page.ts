@@ -143,7 +143,8 @@ export class RegistroPage implements OnInit {
         genero: this.masculino,
         nacimiento: this.nacimiento,
         nombre: this.nombre,
-        uid: id
+        uid: id,
+        photos:[]
       });
       
       this.router.navigateByUrl('tipo-registro');

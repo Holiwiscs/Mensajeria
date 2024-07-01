@@ -7,6 +7,7 @@ import { Gesture, GestureController, IonCard } from '@ionic/angular';
 import { usuarioPf } from 'src/app/models/usuario';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { descripcionU } from 'src/app/models/descripcion';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -39,11 +40,7 @@ export class MenuPage implements OnInit {
 
   startX:number=0;
   endX:number=0;
-
-
-
-
-
+  private subscriptions: Subscription[] = [];
 
   uid: string = null;
   userInfo: usuarioPf;
@@ -60,12 +57,15 @@ export class MenuPage implements OnInit {
 
   async ngOnInit() {
     console.log("Estoy en mi perfil")
-    this.dataBase.stateUser().subscribe( res => {
-      console.log("en perfil - estado autenticacion -> ", res);
-      this.getUid();
-    })
+    this.getUid();
     
   }
+
+  ngOnDestroy() {
+    this.getUid();
+    // this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   loadUsuarios(){
     
   }
