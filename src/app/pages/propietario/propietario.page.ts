@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -20,7 +21,7 @@ export class PropietarioPage implements OnInit {
   seleComunidad: boolean =false;
   seleAlcohol: boolean =false;
   
-
+  id: string;
 
 
   casa:boolean = false;
@@ -51,36 +52,46 @@ export class PropietarioPage implements OnInit {
 
   constructor(private router:Router,
               private storage:StorageService,
-              private database:DatabaseService
+              private database:DatabaseService,
+              private auth: AngularFireAuth
   ) { }
 
   ngOnInit() {
+    this.getUid();
   }
+
+  async getUid() {
+    const user = await this.auth.currentUser;
+    if (user) {
+      this.id = user.uid;
+    } else {
+      console.log('No user is currently logged in.');
+    }
+  }
+
+
+
+
 
   async registrar(){
-      var descripcion =
-      [
-        {
-          txt: this.texto,  
-          vivienda: this.seleVivienda,
-          pago: this.selePago,
-          mascota: this.seleMascotas,
-          ejercicios: this.seleEjercicios,
-          alimentacion: this.seleAlimentacion,
-          fuma: this.seleCigarro,
-          comunidad: this.seleComunidad,
-          alcohol: this.seleAlcohol
-        }
-      ]
-      this.storage.keepUser(descripcion);
-      this.database.agregarDescripcion(this.texto,this.seleVivienda,this.selePago,this.seleMascotas,this.seleEjercicios,this.seleAlimentacion,this.seleCigarro,this.seleComunidad,this.seleAlcohol);
-      console.log(descripcion);
+    if(!this.id){
+      console.log('User ID is not available.');
+      return;
+    }
+    await this.database.agregarDescripcion({
+      texto: this.texto,  
+      vivienda: this.seleVivienda,
+      pago: this.selePago,
+      mascota: this.seleMascotas,
+      ejercicios: this.seleEjercicios,
+      alimentacion: this.seleAlimentacion,
+      fuma: this.seleCigarro,
+      comunidad: this.seleComunidad,
+      alcohol: this.seleAlcohol,
+      uid: this.id
+    });
       this.router.navigateByUrl('menu');
-    
-  }
-
-
-
+    }
 
   async back(){
     await this.router.navigateByUrl("tipo-registro");

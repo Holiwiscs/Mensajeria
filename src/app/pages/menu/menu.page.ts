@@ -4,6 +4,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Gesture, GestureController, IonCard } from '@ionic/angular';
+import { usuarioPf } from 'src/app/models/usuario';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { descripcionU } from 'src/app/models/descripcion';
+
 
 @Component({
   selector: 'app-menu',
@@ -36,7 +40,8 @@ export class MenuPage implements AfterViewInit {
   cards!: QueryList<ElementRef>;
   longPressActive=false;
 
-  uid: string | null = null;
+  uid: string = null;
+  userInfo: usuarioPf;
   
 
   constructor(private gestureCtrl: GestureController,
@@ -44,6 +49,7 @@ export class MenuPage implements AfterViewInit {
               private auth: AngularFireAuth,
               private router: Router,
               public dataBase: DatabaseService,
+              private firestore: AngularFirestore
 
             ) { }
 
@@ -62,29 +68,42 @@ export class MenuPage implements AfterViewInit {
   }
 
   async getUid(){
-    const uid = await this.dataBase.getUid();
-    if(uid){
-      this.uid = uid;
+    const uidd = await this.dataBase.getUid();
+    if(uidd){
+      this.uid = uidd;
       console.log(' Mi uid ->', this.uid);
       this.getInfoUser();
+      this.getInfoDescripcion();
     } else {
       console.log('no existe uid');
     }
+  }
+
+  getInfoDescripcion(){
+    const path = 'Descripcion'
+    const id = this.uid;
+    this.dataBase.getDoc<descripcionU>(path, id).subscribe(res =>{
+      console.log("Las descripciones son estas -> ", res)
+    })
   }
 
 
   getInfoUser(){
     const path = 'Usuario';
     const id = this.uid;
-    if(id){
-      this.dataBase.getDoc(path, id).subscribe( res => {
-        console.log("Los datos son ->", res);
-      });
-    } else {
-      console.log("UID es nulo")
+    this.dataBase.getDoc<usuarioPf>(path, id).subscribe(res => {
+      if(res){
+        this.userInfo = res;
+        console.log("Los datos son -> ", this.userInfo);
+      } else{
+        console.log("No se encontraron datos para el usuario con UID ", id);
+      }
+    });
+    // // this.dataBase.getDoc(path, uid).subscribe( res => {
+    // //   console.log("Los datos son -> ", res);
+    // })    
     }
-  }
-  
+    
 
   useLongPress(cardArray:any[]){
     for(let i =0; i < cardArray.length;i++){

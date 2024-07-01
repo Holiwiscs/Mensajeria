@@ -130,8 +130,9 @@ export class RegistroPage implements OnInit {
     const req = await this.auth.createUserWithEmailAndPassword(this.correo, this.contrasena2);
     if(req){
       console.log("Exito al crear usuario");
-      const path = "Usuario";
+      // // // const path = "Usuario";
       const id = req.user.uid
+      console.log("ID tomada del req.user.uid - >", id)
       //await this.database.createDoc(this.database, path, id);
       await this.database.agregarUsuario({
         apellido:this.apellidos, 
