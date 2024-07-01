@@ -1,17 +1,58 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      <ion-icon  (click)="back()" name="arrow-back-outline"></ion-icon>
+    <ion-title text-align="center">
+      <!-- <ion-icon  (click)="back()" name="arrow-back-outline"></ion-icon> -->
       Roomies
       <ion-icon name="home-outline"></ion-icon>
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/menu"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="bg-gradient" [fullscreen]="true">
   <ion-grid>
-    <h1>Tomar foto</h1>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Perfil </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    
+ 
+      <div class="profile-card">
+        <div class="profile-image">
+          <img src="https://i.blogs.es/0cafeb/naruto/840_560.jpeg" alt="Foto de Perfil">
+        </div>
+        <div class="profile-info">
+          <h1>Juan Pérez, 30</h1>
+          <p class="location">Madrid, España</p>
+          <p class="bio">Amante de los viajes, la buena comida y el deporte. Siempre en busca de nuevas aventuras y experiencias.</p>
+          <h2>Intereses</h2>
+          <ul class="interests">
+            <li>Viajar</li>
+            <li>Gastronomía</li>
+            <li>Deportes</li>
+            <li>Música</li>
+          </ul>
+        </div>
+       
+      </div>
    
+  
+
+    <h1>Galería </h1>
+    <!-- <swiper-container
+  (slidechange)="swiperSlideChanged($event)"
+  [loop]="true"
+  [pagination]="true">
+    <swiper-slide *ngFor="let image of images">
+      <img [src]="image" />
+    </swiper-slide>
+    
+ 
+  </swiper-container>
+    -->
     <ion-button (click)="tomarFoto()">
       <ion-icon  name="camera-outline"></ion-icon>
     </ion-button>

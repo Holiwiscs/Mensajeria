@@ -2,3 +2,66 @@ h1{
     color: white;
     font-family: estres;
 }
+
+.profile-card {
+    width: 100%;
+    max-width: 350px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .profile-image img {
+    border-radius: 50%;
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+  
+  .profile-info {
+    padding: 20px;
+  }
+  
+  .profile-info h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .profile-info .location {
+    font-size: 14px;
+    color: #888;
+    margin: 5px 0;
+  }
+  
+  .profile-info .bio {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .profile-info h2 {
+    margin: 20px 0 10px;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .interests {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .interests li {
+    margin: 5px 0;
+  }
+  
+  .profile-actions {
+    padding: 10px;
+    border-top: 1px solid #eee;
+  }

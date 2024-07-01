@@ -14,31 +14,36 @@ import { descripcionU } from 'src/app/models/descripcion';
   templateUrl: './menu.page.html',
   styleUrls: ['./menu.page.scss'],
 })
-export class MenuPage implements AfterViewInit {
-   people=[
+export class MenuPage implements OnInit {
+  users: Array<any>=[
     {
       name:'juanitoculisuelto',
       age:23,
       img:'https://img.freepik.com/foto-gratis/chico-guapo-seguro-posando-contra-pared-blanca_176420-32936.jpg',
-      power:0
+      descripcion: 'Me gustan los gatos'
     },
     {
       name:'elsapallo',
       age:20,
       img:'https://www.caritas.org.mx/wp-content/uploads/2019/02/cualidades-persona-humanitaria.jpg',
-      power:0
-    },
+      descripcion: 'Me gustan los perritos'    },
     {
      name:'marioneta',
      age:18,
      img:'https://media.gq.com.mx/photos/61780a08f865d472dfcd66c8/master/w_2560%2Cc_limit/GettyImages-1225777369.jpg',
-     power:0
+     descripcion: 'Me gustan los perritos'
     }
   ]
 
-  @ViewChildren(IonCard, { read: ElementRef })
-  cards!: QueryList<ElementRef>;
-  longPressActive=false;
+  
+
+  startX:number=0;
+  endX:number=0;
+
+
+
+
+
 
   uid: string = null;
   userInfo: usuarioPf;
@@ -61,11 +66,68 @@ export class MenuPage implements AfterViewInit {
     })
     
   }
-
-  ngAfterViewInit(){
-    const cardArray=this.cards?.toArray();
-    this.useLongPress(cardArray);
+  loadUsuarios(){
+    
   }
+  touchStart(evt:any){
+    this.startX=evt.touches[0].pageX;
+  }
+  
+  touchMove(evt:any, index:number){
+    let deltaX= this.startX - evt.touches[0].pageX;
+    let deg = deltaX/10;
+    this.endX=evt.touches[0].pageX;
+    //swipe gesture
+    (<HTMLStyleElement>document.getElementById("card-" + index)).style.transform="translateX("+ -deltaX + "px) rotate(" + -deg +"deg)";
+  
+   if((this.endX - this.startX) < 0){
+    (<HTMLStyleElement>document.getElementById("reject-icon")).style.opacity=String(deltaX / 100);
+  }
+  else{
+    (<HTMLStyleElement>document.getElementById("accept-icon")).style.opacity=String(-deltaX / 100);
+  
+  }
+   
+  }
+  touchEnd(index:number){
+    if(this.endX > 0){
+      let finalX=this.endX= this.startX;
+      if(finalX > -100 && finalX < 100 ){
+        (<HTMLStyleElement>document.getElementById("card-" + index)).style.transition=".3s";
+        (<HTMLStyleElement>document.getElementById("card-" + index)).style.transform= "translate(0px) rotate(0deg)";
+       setTimeout(()=>{
+        (<HTMLStyleElement>document.getElementById("card-" + index)).style.transition="0s";
+        },350);
+      
+       
+      }
+      else if(finalX <= -100){
+        (<HTMLStyleElement>document.getElementById("card-" + index)).style.transition="1s";
+        (<HTMLStyleElement>document.getElementById("card-" + index)).style.transform="translateX(-1000px) rotate(-30deg)";
+      
+        setTimeout(() => {
+          this.users.splice(index,1);
+        }, 100);
+        
+      }
+      else if (finalX >= 100){
+        (<HTMLStyleElement>document.getElementById("card-" + index)).style.transition="1s";
+        (<HTMLStyleElement>document.getElementById("card-" + index)).style.transform="translateX(-1000px) rotate(-30deg)";
+      
+        setTimeout(() => {
+          this.users.splice(index,1);
+        }, 100);
+      }
+      this.startX=0;
+      this.endX=0;
+      (<HTMLStyleElement>document.getElementById("reject-icon")).style.opacity="0";
+      (<HTMLStyleElement>document.getElementById("accept-icon")).style.opacity="0";
+  
+  
+    }
+  }
+ 
+ 
 
   async getUid(){
     const uidd = await this.dataBase.getUid();
@@ -105,31 +167,9 @@ export class MenuPage implements AfterViewInit {
     }
     
 
-  useLongPress(cardArray:any[]){
-    for(let i =0; i < cardArray.length;i++){
-      const card=cardArray[i]
-      console.log('card',card);
-      const gesture: Gesture = this.gestureCtrl.create({
-        el: card.nativeElement,
-        gestureName: 'long-press',
-        onStart:ev=>{this.longPressActive =true;
-                    //  this.increasePower(i);
-        },
-        onEnd:ev=>{this.longPressActive =false;}
-      });
-      gesture.enable(true);
-    }
+  
+  
 
-  }
-  // increasePower(i){
-  //   setTimeout(()=>{
-  //     this.people[i].power++;
-  //   },200)
-
-  // }
-  // useTinderSwipe(cardArray){
-
-  // }
   async cerrarSesion(){
     var salir = await this.helper.Confirmar("¿Desea cerrar sesión?","Salir","Cancelar");
     if(salir == true){
@@ -147,27 +187,6 @@ export class MenuPage implements AfterViewInit {
   }
 
 
-//   setCardColor(x, element){
- 
-//    let color ='';
-//    const abs = Math.abs (x);
-//    const min = Math. trunc (Math.min(16 * 16 - abs, 16 *16));
-//    const hexCode = this.decimalToHex(min, 2);
-//     if (x < 0){
-//     color = '#FF' + hexCode + hexCode;
-//      } else{
-//     color = '#' + hexCode + 'FF' + hexCode;
-//      }
-//      element.style.background = color;
-//    }
-
-//    decimalToHex (d, padding){
-//    let hex = Number (d).toString(16);
-//    padding = typeof padding === 'undefined" || padding === null ? (padding = 2) : padding;
-//    while (hex.length < padding){
-//      hex = '0' + hex;}
-//    return hex;
-// }
 
 
 

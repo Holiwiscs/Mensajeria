@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { usuarioPf } from 'src/app/models/usuario';
 import { FotografiaService } from 'src/app/services/fotografia.service';
 
 
@@ -11,7 +12,7 @@ import { FotografiaService } from 'src/app/services/fotografia.service';
 export class PerfilPage implements OnInit {
 
   fotos : string []=[];
-  
+  usuario:usuarioPf[]=[];
 
   constructor(private router:Router,
               private fotografiaService:FotografiaService

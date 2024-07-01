@@ -4,17 +4,23 @@
       <ion-title>
         Roomies
         <ion-icon name="home-outline"></ion-icon>
-        </ion-title>
-    
+      </ion-title>
+
     </ion-toolbar>
   </ion-header>
   <ion-content class="bg-gradient" [fullscreen]="true">
     <ion-grid>
-      <ion-avatar>
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-      </ion-avatar>
+      <ion-item  >
+     <div class="container-profile">
+    
+      <img src="assets/img/inu.jpg" alt="">
+    
+      <ion-label class="name"> Nombre de usuario: </ion-label>
+      <ion-label class="email">Email:</ion-label>
+     </div>
+    </ion-item>
       <br>
-      <h1 (click)="perfil()" >Mi perfil</h1>
+      <h1 (click)="perfil()">Mi perfil</h1>
       <hr class="custom-divider">
       <h1 (click)="mensajeria()">Mensajes</h1>
       <hr class="custom-divider">
@@ -27,7 +33,7 @@
       <h1>Configuración</h1>
     </ion-grid>
   </ion-content>
-  <ion-button (click)="cerrarSesion()" >Cerrar Sesión</ion-button>
+  <ion-button (click)="cerrarSesion()">Cerrar Sesión</ion-button>
 </ion-menu>
 <div class="ion-page" id="main-content">
   <ion-header>
@@ -38,26 +44,39 @@
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="bg-gradient" [fullscreen]="true" >
-    <h2>Bienvenido "nombre de usuario"</h2> 
-  <!-- <swiper-container
-  (slidechange)="swiperSlideChanged($event)"
-  [loop]="true"
-  [pagination]="true">
-    <swiper-slide *ngFor="let image of images">
-      <img [src]="image" />
-    </swiper-slide>
+  <ion-content class="bg-gradient" [fullscreen]="true">
+    <h2>Bienvenido "nombre de usuario"</h2>
+    <div class="users" *ngIf="users.length > 0;else emptyTemplate">
+      <div class="user" *ngFor="let user of users;let i= index;" [style.zIndex]="users.length - i"
+        (touchstart)="touchStart($event)" (touchmove)="touchMove($event,i)" (touchend)="touchEnd(i)" id="{{'card-'+i}}">
+        <ion-card>
+          <ion-card-content mode="md" >
+            <div class="image-container">
+              <img src="{{user.img}}" alt="">
+              <div class="icons">
+                <ion-icon name="heart-dislike" class="icon" color="danger" id="reject-icon"></ion-icon>
+                <ion-icon name="heart" class="icon" color="primary" id="accept-icon"></ion-icon>
+              </div>
+            </div>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>{{user.name}}</h2>
+                <p>{{user.age}},{{user.descripcion}}</p>
+              </ion-label>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
     
- 
-  </swiper-container> -->
-  <ion-card *ngFor="let p of people" [style.position]="'absolute'">
-    <img [src]="p.img" [style.width]="'100%'" >
-   <ion-card-header>
-    <ion-card-title>{{p.name}}</ion-card-title>
-    <ion-card-subtitle>power:{{p.power}}</ion-card-subtitle>
-   </ion-card-header>
+    <ng-template #emptyTemplate>
+      <div class="center">
 
-  </ion-card>
+        <ion-icon name="checkmark-circle"></ion-icon>
+        <br>
+        <ion-note>All swiped!</ion-note>
 
+      </div>
+    </ng-template>
   </ion-content>
 </div>
