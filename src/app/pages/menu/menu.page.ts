@@ -50,7 +50,7 @@ export class MenuPage implements OnInit {
               private helper:HelperService,
               private auth: AngularFireAuth,
               private router: Router,
-              public dataBase: DatabaseService,
+              private dataBase: DatabaseService,
               private firestore: AngularFirestore
 
             ) { }
@@ -161,9 +161,7 @@ export class MenuPage implements OnInit {
         console.log("No se encontraron datos para el usuario con UID ", id);
       }
     });
-    // // this.dataBase.getDoc(path, uid).subscribe( res => {
-    // //   console.log("Los datos son -> ", res);
-    // })    
+
     }
     
 

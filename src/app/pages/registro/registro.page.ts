@@ -22,11 +22,10 @@ export class RegistroPage implements OnInit {
   nombre: string ="";
   apellidos: string ="";
   nacimiento: string="";
-  selegenero: boolean = false;
-  femenino:boolean = false;
-  masculino:boolean = false;;
-  noDecirlo:boolean = false;
-  otro:boolean = false;
+
+  selegenero: string="";
+
+
   edad:number = 0;
   correo: string ="";
   contrasena1: string ="";
@@ -111,7 +110,6 @@ export class RegistroPage implements OnInit {
       return;
     }
     
-
     if(this.contrasena1 == "" ) {
       await this.helper.mostrarAlerta("Debes ingresar una contraseña.", "Información");
       return;
@@ -140,7 +138,7 @@ export class RegistroPage implements OnInit {
         region: this.seleRegion,
         correo: this.correo,
         edad: this.edad,
-        genero: this.masculino,
+        genero: this.selegenero,
         nacimiento: this.nacimiento,
         nombre: this.nombre,
         uid: id,

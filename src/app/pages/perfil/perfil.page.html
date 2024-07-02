@@ -11,31 +11,44 @@
 </ion-header>
 
 <ion-content class="bg-gradient" fullscreen="true">
-  <ion-grid>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Perfil</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    
+  
+  <ion-list *ngIf="info">
+    <ion-item>
+      <ion-label>
+        {{ info.nombre }} {{ info.apellido }} 
+      </ion-label>
+      <ion-icon slot="end" name="create"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        {{ info.edad }}
+      </ion-label>
+      <ion-icon (click)="alertaEditar()" slot="end" name="create"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        {{ info.genero }}
+      </ion-label>
+      <ion-icon slot="end" name="create"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        {{ info.comuna }}
+      </ion-label>
+      <ion-icon slot="end" name="create"></ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        {{ info.photos }}
+      </ion-label>
+      <ion-icon slot="end" name="create"></ion-icon>
+    </ion-item>
+  </ion-list>
+  
+  
 
-    <div class="profile-card">
-      <div class="profile-image">
-        <img src="https://i.blogs.es/0cafeb/naruto/840_560.jpeg" alt="Foto de Perfil">
-      </div>
-      <div class="profile-info">
-        <h1>{{ usuario.nombre }} {{ usuario.apellido }} {{ usuario.edad }}</h1>
-        <p class="location">{{ usuario.comuna }}, {{ usuario.region }}</p>
-        <p class="bio">Amante de los viajes, la buena comida y el deporte. Siempre en busca de nuevas aventuras y experiencias.</p>
-        <h2>Intereses</h2>
-        <ul class="interests">
-          <li>Viajar</li>
-          <li>Gastronomía</li>
-          <li>Deportes</li>
-          <li>Música</li>
-        </ul>
-      </div>
-    </div>
-
+  <!-- <ion-grid>
     <h1>Galería</h1>
     <div class="gallery">
       <ion-row class="gallery-row">
@@ -57,133 +70,8 @@
     </ion-button>
     
     <ion-button expand="block" color="primary" (click)="saveProfile()">Guardar Perfil</ion-button>
-  </ion-grid>
+  </ion-grid> -->
 </ion-content>
 
 
 
-
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title text-align="center">
-      Roomies
-      <ion-icon name="home-outline"></ion-icon>
-    </ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/menu"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="bg-gradient" [fullscreen]="true">
-  <ion-grid>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Perfil</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <div class="profile-card">
-      <div class="profile-image">
-        <img src="https://i.blogs.es/0cafeb/naruto/840_560.jpeg" alt="Foto de Perfil">
-      </div>
-      <div class="profile-info">
-        <h1>Juan Pérez, 30</h1>
-        <p class="location">Madrid, España</p>
-        <p class="bio">Amante de los viajes, la buena comida y el deporte. Siempre en busca de nuevas aventuras y experiencias.</p>
-        <h2>Intereses</h2>
-        <ul class="interests">
-          <li>Viajar</li>
-          <li>Gastronomía</li>
-          <li>Deportes</li>
-          <li>Música</li>
-        </ul>
-      </div>
-    </div>
-
-    <h1>Galería</h1>
-    <ion-row>
-      <ion-col size="6" *ngFor="let photo of photos; let i = index">
-        <ion-card>
-          <ion-img [src]="photo"></ion-img>
-          <ion-button color="danger" (click)="deletePhoto(photo, i)">Eliminar</ion-button>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-
-    <ion-item>
-      <input type="file" (change)="uploadPhoto($event)" accept="image/*" />
-    </ion-item>
-
-    <ion-button (click)="tomarFoto()">
-      <ion-icon name="camera-outline"></ion-icon>
-    </ion-button>
-  </ion-grid>
-</ion-content> -->
-
-
-
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title text-align="center">
-      Roomies
-      <ion-icon name="home-outline"></ion-icon>
-    </ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/menu"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="bg-gradient" [fullscreen]="true">
-  <ion-grid>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Perfil </ion-title>
-      </ion-toolbar>
-    </ion-header>
-    
- 
-      <div class="profile-card">
-        <div class="profile-image">
-          <img src="https://i.blogs.es/0cafeb/naruto/840_560.jpeg" alt="Foto de Perfil">
-        </div>
-        <div class="profile-info">
-          <h1>Juan Pérez, 30</h1>
-          <p class="location">Madrid, España</p>
-          <p class="bio">Amante de los viajes, la buena comida y el deporte. Siempre en busca de nuevas aventuras y experiencias.</p>
-          <h2>Intereses</h2>
-          <ul class="interests">
-            <li>Viajar</li>
-            <li>Gastronomía</li>
-            <li>Deportes</li>
-            <li>Música</li>
-          </ul>
-        </div>
-       
-      </div>
-   
-  
-
-    <h1>Galería </h1>
-    <div class="gallery">
-      <div class="gallery-row" *ngFor="let row of chunkedPhotos">
-        <div class="gallery-col" *ngFor="let photo of row">
-          <ion-img [src]="photo"></ion-img>
-        </div>
-      </div>
-    </div>
-  
-    <ion-item>
-      <input type="file" (change)="uploadPhoto($event)" accept="image/*" />
-    </ion-item>
-    <ion-button (click)="tomarFoto()">
-      <ion-icon  name="camera-outline"></ion-icon>
-    </ion-button>
-    <ion-row>
-      <ion-col size="12" *ngFor="let foto of fotos">
-        <ion-img [src]="fotos"></ion-img>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content> -->

@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
+import { descripcionU } from 'src/app/models/descripcion';
 import { usuarioPf } from 'src/app/models/usuario';
 import { DatabaseService } from 'src/app/services/database.service';
 import { FotografiaService } from 'src/app/services/fotografia.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 
 @Component({
@@ -15,20 +18,13 @@ import { FotografiaService } from 'src/app/services/fotografia.service';
 export class PerfilPage implements OnInit {
 
   fotos : string []=[];
-  usuario: usuarioPf = {
-    nombre: '',
-    apellido: '',
-    nacimiento: '',
-    edad: 0,
-    genero: false, 
-    comuna: 0, 
-    region: 0, 
-    correo: '',
-    uid: '',
-    photos: []
-  };
+  usuario: any;
+  userInfo: usuarioPf;
+
+  info: usuarioPf = null;
 
   id: string;
+  
   
   photos: string[] = [];
   currentUserId: string;
@@ -41,12 +37,13 @@ export class PerfilPage implements OnInit {
   constructor(private router:Router,
               private fotografiaService:FotografiaService,
               private database: DatabaseService,
-              private afAuth: AngularFireAuth,
-              private sanitizer: DomSanitizer,
-            private databaseService:DatabaseService) 
+              private auth: AngularFireAuth,
+              private alertController: AlertController
+             
+  ) 
   {this.fotos = this.fotografiaService.fotos;
     
-      this.afAuth.currentUser.then(user => {
+      this.auth.currentUser.then(user => {
         if (user) {
           this.currentUserId = user.uid;
           this.loadUserPhotos();
@@ -55,26 +52,85 @@ export class PerfilPage implements OnInit {
   }
 
   ngOnInit() {
+    this.getUid();
   }
+  
+  async alertaEditar(){
+    var alerta = await this.alertController.create({
+      cssClass:"my-custom-class", 
+      header:'Editar edad',
+      inputs:[
+        {
+          name: 'edad',
+          type: 'number',
+          placeholder: 'Ingresa tu edad'
+        },
+      ],
+      buttons:[
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () =>{
+            console.log("confirmo cancelacion");
+          }
+        },{
+          text: 'Ok',
+          handler: () =>{
+            console.log("confirmar ok");
+          }
+        }
 
-  async getUid() {
-    const user = await this.auth.currentUser;
-    if (user) {
-      this.id = user.uid;
+      ]
+  
+  });
+  await alerta.present();
+}
+
+saveEdad(edadInput: number){
+  const path= 'Usuario';
+  const id = this.uid;
+  const updateDoc = {
+    edad: edadInput
+  }; 
+  
+}
+
+  async getUid(){
+    const uidd = await this.database.getUid();
+    if(uidd){
+      this.uid = uidd;
+      console.log(' Mi uid ->', this.uid);
+      this.getInfoDescripcion();
+      this.getInfoUser();
     } else {
-      console.log('No user is currently logged in.');
+      console.log('no existe uid');
     }
   }
-    
-    
 
+  getInfoDescripcion(){
+    const path = 'Descripcion'
+    const id = this.uid;
+    this.database.getDoc<descripcionU>(path, id).subscribe(res =>{
+      console.log("Las descripciones son estas -> ", res)
+    })
   }
+
+
   getInfoUser(){
-    const path='Usuarios'
-    const id=this.uid;
-    this.databaseService.getDoc<usuarioPf>(path,id).subscribe(res => {console.log('datos son =>',res)})
-
+    const path = 'Usuario';
+    const id = this.uid;
+    this.database.getDoc<usuarioPf>(path, id).subscribe(res => {
+      if(res){
+        this.userInfo = res;
+        this.info = res;
+        console.log("Los datos son -> ", this.userInfo);
+      } else{
+        console.log("No se encontraron datos para el usuario con UID ", id);
+      }
+    });
   }
+    
   loadUserPhotos() {
     this.database.getDoc<any>('Usuario', this.currentUserId).subscribe(userData => {
       this.photos = userData?.photos || [];

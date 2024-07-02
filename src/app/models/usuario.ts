@@ -3,7 +3,7 @@ export interface usuarioPf{
     apellido: string, 
     nacimiento: string,
     edad: number,
-    genero: boolean,
+    genero: string,
     comuna: number,
     region: number,
     correo: string, 

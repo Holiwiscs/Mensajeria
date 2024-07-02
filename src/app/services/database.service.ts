@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, finalize } from 'rxjs';
+import { finalize } from 'rxjs';
 import { usuarioPf } from '../models/usuario';
 import { descripcionU } from '../models/descripcion';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -13,7 +13,7 @@ export class DatabaseService {
 
   constructor(private firestore: AngularFirestore,
               private authfirebase: AngularFireAuth,
-              private storage: AngularFireStorage // Agrega esto
+              private storage: AngularFireStorage
   ) { }
 
 
@@ -65,14 +65,6 @@ export class DatabaseService {
   }
   
 
-  // // // async getUid() {
-  // // //   const user = this.authfirebase.currentUser;
-  // // //   if (user) {
-  // // //     return (await user).email;
-  // // //   } else {
-  // // //     return null;
-  // // //   }
-  // // // }
   uploadPhoto(file: File, userId: string, photoIndex: number): Promise<string> {
     return new Promise((resolve, reject) => {
       const filePath = `users/${userId}/photo_${photoIndex}`;
@@ -115,6 +107,10 @@ export class DatabaseService {
 
   getDoc<tipo>(path: string, id: string) {
     return this.firestore.collection(path).doc<tipo>(id).valueChanges();
+  }
+
+  updateDoc(path: string, id: string, data: any){
+    return this.firestore.collection(path).doc(id).update(data);
   }
 
   stateUser() {

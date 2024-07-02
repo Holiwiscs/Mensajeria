@@ -7,7 +7,8 @@ import { AlertController, LoadingController } from '@ionic/angular';
 export class HelperService {
 
   constructor(private alertService: AlertController,
-              private loadingController: LoadingController
+              private loadingController: LoadingController,
+              
   ) { }
 
   async mostrarAlerta(msg:string,title:string){
@@ -51,5 +52,5 @@ export class HelperService {
     return promesa;
   }
 
-
 }
+
