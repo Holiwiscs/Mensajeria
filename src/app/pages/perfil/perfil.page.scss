@@ -1,98 +1,149 @@
-h1{
-    color: white;
-    font-family: estres;
+.bg-gradient {
+  background: linear-gradient(to bottom right, #ff416c, #ff4b2b);
+  color: white;
 }
 
-.profile-card {
-    width: 100%;
-    max-width: 350px;
-    margin: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    overflow: hidden;
-    text-align: center;
-  }
+.profile-info {
+  padding: 20px;
+}
+
+.profile-info ion-list {
+  margin-bottom: 20px;
+}
+
+.profile-info ion-item {
+  --inner-padding-start: 0;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -5px;
+}
+
+.gallery-row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.gallery-col {
+  flex: 1 1 50%;
+  max-width: 50%;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.gallery-col ion-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.gallery-col ion-img:hover {
+  transform: scale(1.05);
+}
+
+
+
+
+// h1{
+//     color: white;
+//     font-family: estres;
+// }
+
+// .profile-card {
+//     width: 100%;
+//     max-width: 350px;
+//     margin: auto;
+//     border-radius: 10px;
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//     background-color: #fff;
+//     overflow: hidden;
+//     text-align: center;
+//   }
   
-  .profile-image img {
-    border-radius: 50%;
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-  }
+//   .profile-image img {
+//     border-radius: 50%;
+//     width: 100%;
+//     max-width: 200px;
+//     height: auto;
+//   }
   
-  .profile-info {
-    padding: 20px;
-  }
+//   .profile-info {
+//     padding: 20px;
+//   }
   
-  .profile-info h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-  }
+//   .profile-info h1 {
+//     margin: 0;
+//     font-size: 24px;
+//     color: #333;
+//   }
   
-  .profile-info .location {
-    font-size: 14px;
-    color: #888;
-    margin: 5px 0;
-  }
+//   .profile-info .location {
+//     font-size: 14px;
+//     color: #888;
+//     margin: 5px 0;
+//   }
   
-  .profile-info .bio {
-    margin: 10px 0;
-    font-size: 14px;
-    color: #666;
-  }
+//   .profile-info .bio {
+//     margin: 10px 0;
+//     font-size: 14px;
+//     color: #666;
+//   }
   
-  .profile-info h2 {
-    margin: 20px 0 10px;
-    font-size: 18px;
-    color: #333;
-  }
+//   .profile-info h2 {
+//     margin: 20px 0 10px;
+//     font-size: 18px;
+//     color: #333;
+//   }
   
-  .interests {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-    color: #666;
-  }
+//   .interests {
+//     list-style: none;
+//     padding: 0;
+//     margin: 0;
+//     font-size: 14px;
+//     color: #666;
+//   }
   
-  .interests li {
-    margin: 5px 0;
-  }
+//   .interests li {
+//     margin: 5px 0;
+//   }
   
-  .profile-actions {
-    padding: 10px;
-    border-top: 1px solid #eee;
-  }
-  .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -5px;
-  }
+//   .profile-actions {
+//     padding: 10px;
+//     border-top: 1px solid #eee;
+//   }
+//   .gallery {
+//     display: flex;
+//     flex-wrap: wrap;
+//     margin: -5px;
+//   }
   
-  .gallery-row {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-  }
+//   .gallery-row {
+//     display: flex;
+//     flex-wrap: wrap;
+//     width: 100%;
+//   }
   
-  .gallery-col {
-    flex: 1 1 50%;
-    max-width: 50%;
-    padding: 5px;
-    box-sizing: border-box;
-  }
+//   .gallery-col {
+//     flex: 1 1 50%;
+//     max-width: 50%;
+//     padding: 5px;
+//     box-sizing: border-box;
+//   }
   
-  .gallery-col ion-img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-  }
+//   .gallery-col ion-img {
+//     width: 100%;
+//     height: auto;
+//     border-radius: 8px;
+//     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+//     transition: transform 0.3s ease;
+//   }
   
-  .gallery-col ion-img:hover {
-    transform: scale(1.05);
-  }
+//   .gallery-col ion-img:hover {
+//     transform: scale(1.05);
+//   }
   

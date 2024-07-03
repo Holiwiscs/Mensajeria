@@ -22,6 +22,7 @@ export class PerfilPage implements OnInit {
   userInfo: usuarioPf;
 
   info: usuarioPf = null;
+  infoDescrip: descripcionU = null;
 
   id: string;
   
@@ -38,7 +39,8 @@ export class PerfilPage implements OnInit {
               private fotografiaService:FotografiaService,
               private database: DatabaseService,
               private auth: AngularFireAuth,
-              private alertController: AlertController
+              private alertController: AlertController,
+              private helper: HelperService
              
   ) 
   {this.fotos = this.fotografiaService.fotos;
@@ -54,16 +56,17 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
     this.getUid();
   }
+
   
-  async alertaEditar(){
+  async editarAtributoUsuario(name: string){
     var alerta = await this.alertController.create({
       cssClass:"my-custom-class", 
-      header:'Editar edad',
+      header:'Edita tu ' + name,
       inputs:[
         {
-          name: 'edad',
-          type: 'number',
-          placeholder: 'Ingresa tu edad'
+          name,
+          type: 'text',
+          placeholder: 'Ingresa tu ' + name
         },
       ],
       buttons:[
@@ -75,9 +78,10 @@ export class PerfilPage implements OnInit {
             console.log("confirmo cancelacion");
           }
         },{
-          text: 'Ok',
-          handler: () =>{
-            console.log("confirmar ok");
+          text: 'Aceptar',
+          handler: (ev) =>{
+            console.log("confirmar ok", ev);
+            this.saveAtributoUsuario(name, ev[name])
           }
         }
 
@@ -87,14 +91,62 @@ export class PerfilPage implements OnInit {
   await alerta.present();
 }
 
-saveEdad(edadInput: number){
+saveAtributoUsuario(name: string, input: any){
   const path= 'Usuario';
   const id = this.uid;
   const updateDoc = {
-    edad: edadInput
   }; 
-  
+  updateDoc[name] = input;
+  this.database.updateDoc(path, id, updateDoc).then( () => {
+    this.helper.showtoast("Actualizado con exito")
+  })
 }
+
+async editarAtributoDescripcion(name: string){
+  var alerta = await this.alertController.create({
+    cssClass:"my-custom-class", 
+    header:'Edita tu ' + name,
+    inputs:[
+      {
+        name,
+        type: 'text',
+        placeholder: 'Ingresa tu ' + name
+      },
+    ],
+    buttons:[
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: () =>{
+          console.log("confirmo cancelacion");
+        }
+      },{
+        text: 'Aceptar',
+        handler: (ev) =>{
+          console.log("confirmar ok", ev);
+          this.saveAtributoDescripcion(name, ev[name])
+        }
+      }
+
+    ]
+
+});
+await alerta.present();
+}
+
+saveAtributoDescripcion(name: string, input: any){
+  const path= 'Descripcion';
+  const id = this.uid;
+  const updateDoc = {
+  }; 
+  updateDoc[name] = input;
+  this.database.updateDoc(path, id, updateDoc).then( () => {
+    this.helper.showtoast("Actualizado con exito")
+  })
+}
+
+
 
   async getUid(){
     const uidd = await this.database.getUid();
@@ -111,8 +163,11 @@ saveEdad(edadInput: number){
   getInfoDescripcion(){
     const path = 'Descripcion'
     const id = this.uid;
-    this.database.getDoc<descripcionU>(path, id).subscribe(res =>{
-      console.log("Las descripciones son estas -> ", res)
+    this.database.getDoc<descripcionU>(path, id).subscribe(des =>{
+      if(des){
+        this.infoDescrip = des;
+      }
+      console.log("Las descripciones son estas -> ", des)
     })
   }
 
@@ -137,6 +192,29 @@ saveEdad(edadInput: number){
     });
   }
 
+  // // // async uploadPhoto(event: any) {
+  // // //   const file = event.target.files[0];
+  // // //   if (file) {
+  // // //     const photoIndex = this.photos.length;
+  // // //     if (photoIndex < 6) {
+  // // //       const photoUrl = await this.database.uploadPhoto(file, this.currentUserId, photoIndex);
+  // // //       this.photos.push(photoUrl);
+
+  // // //       this.database.getDoc<any>('Usuario', this.currentUserId).subscribe(async userData => {
+  // // //         if (userData) {
+  // // //           // Si el documento existe, actualízalo
+  // // //           await this.database.updateUserProfilePhotos(this.currentUserId, this.photos);
+  // // //         } else {
+  // // //           // Si el documento no existe, créalo
+  // // //           await this.database.setDoc('Usuario', this.currentUserId, { photos: this.photos });
+  // // //         }
+  // // //       });
+  // // //     } else {
+  // // //       console.log('No puedes subir más de 6 fotos.');
+  // // //     }
+  // // //   }
+  // // // }
+
   async uploadPhoto(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -144,22 +222,12 @@ saveEdad(edadInput: number){
       if (photoIndex < 6) {
         const photoUrl = await this.database.uploadPhoto(file, this.currentUserId, photoIndex);
         this.photos.push(photoUrl);
-
-        this.database.getDoc<any>('Usuario', this.currentUserId).subscribe(async userData => {
-          if (userData) {
-            // Si el documento existe, actualízalo
-            await this.database.updateUserProfilePhotos(this.currentUserId, this.photos);
-          } else {
-            // Si el documento no existe, créalo
-            await this.database.setDoc('Usuario', this.currentUserId, { photos: this.photos });
-          }
-        });
+        await this.database.updateUserProfilePhotos(this.currentUserId, this.photos);
       } else {
         console.log('No puedes subir más de 6 fotos.');
       }
     }
   }
-
 chunkPhotos() {
   this.chunkedPhotos = [];
   for (let i = 0; i < this.photos.length; i += 2) {
@@ -171,7 +239,7 @@ async deletePhoto(photoUrl: string, index: number) {
   try {
     await this.database.deletePhoto(photoUrl, this.currentUserId, index);
     this.photos.splice(index, 1);
-    await this.database.updateUserProfilePhotos;
+    await this.database.updateUserProfilePhotos(this.currentUserId, this.photos);
     console.log('Foto eliminada con éxito');
   } catch (error) {
     console.error('Error al eliminar la foto:', error);

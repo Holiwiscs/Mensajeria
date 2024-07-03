@@ -32,11 +32,11 @@
         <br>
         <ion-item>
           <ion-input [(ngModel)]="nacimiento" type="date" label="Fecha de nacimiento:" label-placement="floating"
-            fill="outline"></ion-input>
+            fill="outline" (ionChange)="calcularEdad()"></ion-input>
         </ion-item>
         <br>
         <ion-item>
-          <ion-input [(ngModel)]="edad" label="Edad:" label-placement="floating" fill="outline"></ion-input>
+          <ion-input [(ngModel)]="edad" label="Edad:" label-placement="floating" fill="outline" disabled></ion-input>
         </ion-item>
         <br>
      

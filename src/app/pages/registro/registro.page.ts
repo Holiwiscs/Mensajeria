@@ -21,7 +21,7 @@ export class RegistroPage implements OnInit {
 
   nombre: string ="";
   apellidos: string ="";
-  nacimiento: string="";
+  nacimiento: string;
 
   selegenero: string="";
 
@@ -70,9 +70,18 @@ export class RegistroPage implements OnInit {
        this.disabledComuna = false;
     }catch(error:any){
       await this.helper.mostrarAlerta(error.error.msg,"");
-     }
-     
-     
+     } 
+  }
+
+
+
+  calcularEdad() {
+    if (!this.nacimiento) return; // Si no hay fecha de nacimiento, salir
+
+    const fechaNacimiento = new Date(this.nacimiento);
+    const hoy = new Date();
+    const edadMilisegundos = hoy.getTime() - fechaNacimiento.getTime();
+    this.edad = Math.floor(edadMilisegundos / (1000 * 60 * 60 * 24 * 365.25));
   }
 
   async registro(){
@@ -100,8 +109,8 @@ export class RegistroPage implements OnInit {
       return;
     }
 
-    if(this.edad<=17){
-      await this.helper.mostrarAlerta("Debes ser mayor de 18 años","información");
+    if (this.edad < 18) {
+      await this.helper.mostrarAlerta("Debes ser mayor de 18 años", "información");
       return;
     }
     
@@ -125,32 +134,47 @@ export class RegistroPage implements OnInit {
       return;
     } 
     
-    const req = await this.auth.createUserWithEmailAndPassword(this.correo, this.contrasena2);
-    if(req){
-      console.log("Exito al crear usuario");
-      // // // const path = "Usuario";
-      const id = req.user.uid
-      console.log("ID tomada del req.user.uid - >", id)
-      //await this.database.createDoc(this.database, path, id);
-      await this.database.agregarUsuario({
-        apellido:this.apellidos, 
-        comuna: this.seleComuna,
-        region: this.seleRegion,
-        correo: this.correo,
-        edad: this.edad,
-        genero: this.selegenero,
-        nacimiento: this.nacimiento,
-        nombre: this.nombre,
-        uid: id,
-        photos:[]
-      });
-      
-      this.router.navigateByUrl('tipo-registro');
+  
 
+    try {
+      const req = await this.auth.createUserWithEmailAndPassword(this.correo, this.contrasena2);
+  
+      if (req) {
+        console.log("Éxito al crear usuario");
+  
+        // Enviar correo de verificación
+        await req.user.sendEmailVerification();
+  
+        // Almacenar datos en Firestore
+        const id = req.user.uid;
+        await this.database.agregarUsuario({
+          apellido: this.apellidos,
+          comuna: this.seleComuna,
+          region: this.seleRegion,
+          correo: this.correo,
+          edad: this.edad,
+          genero: this.selegenero,
+          nacimiento: this.nacimiento,
+          nombre: this.nombre,
+          uid: id,
+          photos: []
+        });
+  
+        this.router.navigateByUrl('tipo-registro');
+      }
+    } catch (error) {
+      // Manejo de errores
+      console.error('Error al registrar usuario:', error);
+  
+      if (error.code === 'auth/email-already-in-use') {
+        await this.helper.mostrarAlerta("El correo electrónico ya está en uso.", "Error");
+      } else if (error.code === 'auth/weak-password') {
+        await this.helper.mostrarAlerta("La contraseña debe tener al menos 6 caracteres.", "Error");
+      } else {
+        await this.helper.mostrarAlerta("Error al registrar usuario. Por favor, inténtalo de nuevo más tarde.", "Error");
       }
     }
-   
-
+  }
     
   
 
@@ -159,9 +183,7 @@ export class RegistroPage implements OnInit {
     await this.router.navigateByUrl('login');
   }
 
-  
-
-  
 
  
+  
 }

@@ -1,6 +1,129 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title text-center>
+      Perfil
+      <ion-icon slot="end" name="person-circle-outline"></ion-icon>
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/menu"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-gradient" fullscreen="true">
+  <div class="profile-info">
+    <ion-list *ngIf="info">
+      <ion-item>
+        <ion-label>
+          Nombre: {{ info.nombre }} 
+        </ion-label>
+        <ion-icon (click)="editarAtributoUsuario('nombre')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Edad: {{ info.edad }}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Género: {{ info.genero }}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Comuna: {{ info.comuna }}
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="infoDescrip">
+      <ion-item>
+        <ion-label>
+          Descripción: {{ infoDescrip.texto }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('texto')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Vivienda: {{ infoDescrip.vivienda }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('vivienda')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Pago: {{ infoDescrip.pago }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('pago')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Mascotas: {{ infoDescrip.mascota }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('mascota')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Ejercicios: {{ infoDescrip.ejercicios }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('ejercicios')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Alimentación: {{ infoDescrip.alimentacion }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('alimentacion')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Fumar: {{ infoDescrip.fuma }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('fuma')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Comunidad: {{ infoDescrip.comunidad }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('comunidad')" slot="end" name="create"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          Alcohol: {{ infoDescrip.alcohol }}
+        </ion-label>
+        <ion-icon (click)="editarAtributoDescripcion('alcohol')" slot="end" name="create"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-grid>
+    <h1>Galería</h1>
+    <div class="gallery">
+      <ion-row class="gallery-row">
+        <ion-col size="6" *ngFor="let photo of photos; let i = index" class="gallery-col">
+          <ion-card>
+            <ion-img [src]="photo" class="ion-img"></ion-img>
+            <ion-button color="danger" (click)="deletePhoto(photo, i)">Eliminar</ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <ion-item>
+      <input type="file" (change)="uploadPhoto($event)" accept="image/*" />
+    </ion-item>
+
+    <ion-button (click)="tomarFoto()">
+      <ion-icon name="camera-outline"></ion-icon>
+    </ion-button>
+
+  </ion-grid>
+</ion-content>
+
+
+
+
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title text-center>
       Roomies
       <ion-icon name="home-outline"></ion-icon>
     </ion-title>
@@ -16,15 +139,9 @@
   <ion-list *ngIf="info">
     <ion-item>
       <ion-label>
-        {{ info.nombre }} {{ info.apellido }} 
+        {{ info.nombre }} 
       </ion-label>
-      <ion-icon slot="end" name="create"></ion-icon>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        {{ info.edad }}
-      </ion-label>
-      <ion-icon (click)="alertaEditar()" slot="end" name="create"></ion-icon>
+      <ion-icon (click)="editarAtributoUsuario('nombre')" slot="end" name="create"></ion-icon>
     </ion-item>
     <ion-item>
       <ion-label>
@@ -45,10 +162,18 @@
       <ion-icon slot="end" name="create"></ion-icon>
     </ion-item>
   </ion-list>
+  <ion-list *ngIf="infoDescrip">
+    <ion-item>
+      <ion-label>
+        {{ infoDescrip.texto }}
+      </ion-label>
+      <ion-icon (click)="editarAtributoDescripcion('texto')" slot="end" name="create"></ion-icon>
+    </ion-item>
+  </ion-list>
   
   
 
-  <!-- <ion-grid>
+  <ion-grid>
     <h1>Galería</h1>
     <div class="gallery">
       <ion-row class="gallery-row">
@@ -70,8 +195,8 @@
     </ion-button>
     
     <ion-button expand="block" color="primary" (click)="saveProfile()">Guardar Perfil</ion-button>
-  </ion-grid> -->
+  </ion-grid>
 </ion-content>
 
 
-
+ -->

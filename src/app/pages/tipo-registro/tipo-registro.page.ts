@@ -27,7 +27,7 @@ export class TipoRegistroPage implements OnInit {
     await this.router.navigateByUrl("rommie");
   }
 
-  async rommie(){
+  async propietario(){
     await this.router.navigateByUrl("propietario");
   }
 

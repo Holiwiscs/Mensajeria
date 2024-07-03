@@ -50,9 +50,64 @@ const routes: Routes = [
     loadChildren: () => import('./pages/soporte/soporte.module').then( m => m.SoportePageModule)
   },
   {
+    path: 'terminos',
+    loadChildren: () => import('./pages/terminos/terminos.module').then( m => m.TerminosPageModule)
+  },
+  {
+    path: 'chat',
+    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule)
+  },
+  {
     path: 'mensajeria',
     loadChildren: () => import('./pages/mensajeria/mensajeria.module').then( m => m.MensajeriaPageModule)
   },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

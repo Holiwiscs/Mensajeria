@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { finalize } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 import { usuarioPf } from '../models/usuario';
 import { descripcionU } from '../models/descripcion';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -126,4 +126,86 @@ export class DatabaseService {
       throw error;
     }
   }
+
+  // Función para añadir un "like" con un ID personalizado
+  addLikeWithId(userId: string, likedUserId: string) {
+    const likeId = `${userId}_${likedUserId}`; // Ejemplo de ID personalizado
+    const like = {
+      userId,
+      likedUserId,
+    };
+
+    return this.firestore.collection('Likes').doc(likeId).set(like);
+  }
+
+  // Función para añadir un "match" con un ID personalizado
+  addMatchWithId(user1Id: string, user2Id: string) {
+    const matchId = `${user1Id}_${user2Id}`; // Ejemplo de ID personalizado
+    const match = {
+      user1Id,
+      user2Id,
+    };
+
+    return this.firestore.collection('Matches').doc(matchId).set(match);
+  }
+
+  // Función para añadir un "chat" con un ID personalizado
+  addChatWithId(matchId: string, userId: string, message: string) {
+    const chatId = `${matchId}_${new Date().getTime()}`; // Ejemplo de ID personalizado
+    const chat = {
+      matchId,
+      userId,
+      message,
+    };
+
+    return this.firestore.collection('Chats').doc(chatId).set(chat);
+  }
+
+  async addChatMessage(chatId: string, message: any): Promise<void> {
+    try {
+      await this.firestore.collection(`Chats/${chatId}/messages`).add(message);
+    } catch (error) {
+      console.error('Error adding chat message:', error);
+      throw error;
+    }
+  }
+  
+  async solicitudSoporte(texto:string){
+
+    const data = {
+      "texto": texto
+    }
+    await this.firestore.collection('solicitud').add(data);
+
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  getMatchesForUser(userId: string): Observable<any[]> {
+    return this.firestore.collection('Matches', ref =>
+      ref.where('user1Id', '==', userId).where('user2Id', '==', userId)
+    ).valueChanges();
+  }
+  
+
 }

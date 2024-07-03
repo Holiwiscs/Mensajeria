@@ -5,20 +5,17 @@
         Roomies
         <ion-icon name="home-outline"></ion-icon>
       </ion-title>
-
     </ion-toolbar>
   </ion-header>
   <ion-content class="bg-gradient" [fullscreen]="true">
     <ion-grid>
-      <ion-item  >
-     <div class="container-profile">
-    
-      <img src="assets/img/inu.jpg" alt="">
-    
-      <ion-label class="name"> Nombre de usuario: </ion-label>
-      <ion-label class="email">Email:</ion-label>
-     </div>
-    </ion-item>
+      <ion-item>
+        <div class="container-profile">
+          <img src="https://i.pravatar.cc/385" alt="User Profile Picture">
+          <ion-label class="name">Nombre de usuario: {{ infoUser?.nombre }}</ion-label>
+          <ion-label class="email">Email: {{ infoUser?.correo }}</ion-label>
+        </div>
+      </ion-item>
       <br>
       <h1 (click)="perfil()">Mi perfil</h1>
       <hr class="custom-divider">
@@ -26,33 +23,37 @@
       <hr class="custom-divider">
       <h1>Inicio</h1>
       <hr class="custom-divider">
-      <h1>Terminos y condiciones</h1>
+      <h1 (click)="terminos()">Términos y condiciones</h1>
       <hr class="custom-divider">
-      <h1>soporte</h1>
+      <h1 (click)="soporte()">Soporte</h1>
       <hr class="custom-divider">
       <h1>Configuración</h1>
     </ion-grid>
   </ion-content>
   <ion-button (click)="cerrarSesion()">Cerrar Sesión</ion-button>
 </ion-menu>
+
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Roomies<ion-icon name="home-outline"></ion-icon></ion-title>
+      <ion-title>
+        Roomies
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-title>
       <ion-buttons slot="end">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
   <ion-content class="bg-gradient" [fullscreen]="true">
-    <h2>Bienvenido "nombre de usuario"</h2>
-    <div class="users" *ngIf="users.length > 0;else emptyTemplate">
-      <div class="user" *ngFor="let user of users;let i= index;" [style.zIndex]="users.length - i"
-        (touchstart)="touchStart($event)" (touchmove)="touchMove($event,i)" (touchend)="touchEnd(i)" id="{{'card-'+i}}">
+    <h2>Bienvenido {{ infoUser?.nombre }}</h2>
+    <div class="users" *ngIf="users.length > 0; else emptyTemplate">
+      <div class="user" *ngFor="let user of users; let i = index;" [style.zIndex]="users.length - i"
+        (touchstart)="touchStart($event)" (touchmove)="touchMove($event, i)" (touchend)="touchEnd(i)" id="{{ 'card-' + i }}">
         <ion-card>
-          <ion-card-content mode="md" >
+          <ion-card-content mode="md">
             <div class="image-container">
-              <img src="{{user.img}}" alt="">
+              <img src="https://i.pravatar.cc/385" alt="User Picture">
               <div class="icons">
                 <ion-icon name="heart-dislike" class="icon" color="danger" id="reject-icon"></ion-icon>
                 <ion-icon name="heart" class="icon" color="primary" id="accept-icon"></ion-icon>
@@ -60,8 +61,13 @@
             </div>
             <ion-item lines="none">
               <ion-label>
-                <h2>{{user.name}}</h2>
-                <p>{{user.age}},{{user.descripcion}}</p>
+                <h2>{{ user.nombre }} {{ user.apellido }}</h2>
+                <p>{{ user.edad }}</p>
+                <p>Género: {{ user.genero }}</p>
+                <p>Ubicación: {{ user.comuna }}</p>
+                <p *ngFor="let descripcion of getDescripcionesByUid(user.uid)">
+                  {{ descripcion.texto }}
+                </p>
               </ion-label>
             </ion-item>
           </ion-card-content>
@@ -71,12 +77,103 @@
     
     <ng-template #emptyTemplate>
       <div class="center">
-
         <ion-icon name="checkmark-circle"></ion-icon>
         <br>
         <ion-note>All swiped!</ion-note>
-
       </div>
     </ng-template>
   </ion-content>
 </div>
+
+
+
+
+<!-- <ion-menu side="end" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Roomies
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="bg-gradient" [fullscreen]="true">
+    <ion-grid>
+      <ion-item>
+        <div class="container-profile">
+          <img src="https://i.pravatar.cc/385" alt="User Profile Picture">
+          <ion-label class="name">Nombre de usuario: {{ infoUser?.nombre }}</ion-label>
+          <ion-label class="email">Email: {{ infoUser?.correo }}</ion-label>
+        </div>
+      </ion-item>
+      <br>
+      <h1 (click)="perfil()">Mi perfil</h1>
+      <hr class="custom-divider">
+      <h1 (click)="mensajeria()">Mensajes</h1>
+      <hr class="custom-divider">
+      <h1>Inicio</h1>
+      <hr class="custom-divider">
+      <h1>Términos y condiciones</h1>
+      <hr class="custom-divider">
+      <h1>Soporte</h1>
+      <hr class="custom-divider">
+      <h1>Configuración</h1>
+    </ion-grid>
+  </ion-content>
+  <ion-button (click)="cerrarSesion()">Cerrar Sesión</ion-button>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Roomies
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="bg-gradient" [fullscreen]="true">
+    <h2>Bienvenido {{ infoUser?.nombre }}</h2>
+    <div class="users" *ngIf="users.length > 0; else emptyTemplate">
+      <div class="user" *ngFor="let user of users; let i = index;" [style.zIndex]="users.length - i"
+        (touchstart)="touchStart($event)" (touchmove)="touchMove($event, i)" (touchend)="touchEnd(i)" id="{{ 'card-' + i }}">
+        <ion-card>
+          <ion-card-content mode="md">
+            <div class="image-container">
+              <img src="https://i.pravatar.cc/385" alt="User Picture">
+              <div class="icons">
+                <ion-icon name="heart-dislike" class="icon" color="danger" id="reject-icon"></ion-icon>
+                <ion-icon name="heart" class="icon" color="primary" id="accept-icon"></ion-icon>
+              </div>
+            </div>
+            <ion-item lines="none">
+              <ion-label>
+                <h2>{{ user.nombre }} {{ user.apellido }}</h2>
+                <p>{{ user.edad }}</p>
+                <p>Género: {{ user.genero }}</p>
+                <p>Ubicación: {{ user.comuna }}</p>
+                <p *ngFor="let descripcion of getDescripcionesByUid(user.uid)">
+                  {{ descripcion.texto }}
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+    
+    <ng-template #emptyTemplate>
+      <div class="center">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        <br>
+        <ion-note>All swiped!</ion-note>
+      </div>
+    </ng-template>
+  </ion-content>
+</div>
+
+
+ -->
