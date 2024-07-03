@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, finalize } from 'rxjs';
+import { Observable, finalize, from } from 'rxjs';
 import { usuarioPf } from '../models/usuario';
 import { descripcionU } from '../models/descripcion';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -161,6 +161,15 @@ export class DatabaseService {
     return this.firestore.collection('Chats').doc(chatId).set(chat);
   }
 
+  async getUserNameByUid(uid: string): Promise<string> {
+    const userDoc = await this.firestore.collection('Usuario').doc(uid).get().toPromise();
+    if (userDoc.exists) {
+      const userData = userDoc.data() as usuarioPf;
+      return userData.nombre;
+    }
+    return 'Unknown';
+  }
+
   async addChatMessage(chatId: string, message: any): Promise<void> {
     try {
       await this.firestore.collection(`Chats/${chatId}/messages`).add(message);
@@ -168,6 +177,13 @@ export class DatabaseService {
       console.error('Error adding chat message:', error);
       throw error;
     }
+  }
+
+  addUserNamesToMessages(messages: any[]): Observable<any[]> {
+    return from(Promise.all(messages.map(async message => {
+      const userName = await this.getUserNameByUid(message.senderUid);
+      return { ...message, senderName: userName };
+    })));
   }
   
   async solicitudSoporte(texto:string){

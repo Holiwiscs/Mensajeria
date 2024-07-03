@@ -1,0 +1,33 @@
+.chat-list {
+    padding: 0;
+  }
+
+  .chat-item {
+    border-bottom: 1px solid #ccc;
+    margin: 8px 0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+
+  .chat-message {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  ion-footer {
+    --background: #ffffff;
+  }
+
+  ion-input {
+    --padding-start: 10px;
+    --padding-end: 10px;
+  }
+
+  ion-button {
+    --padding-start: 0;
+    --padding-end: 0;
+  }
+
+  ion-icon {
+    font-size: 20px;
+  }

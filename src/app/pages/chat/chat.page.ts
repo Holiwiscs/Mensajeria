@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, switchMap } from 'rxjs';
 import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class ChatPage implements OnInit {
 
   chatId: string;
   currentUserUid: string;
+  currentUserName: string;
   messageText: string;
   messages$: Observable<any[]>;
 
@@ -33,19 +34,25 @@ export class ChatPage implements OnInit {
     const user = await this.auth.currentUser;
     if (user) {
       this.currentUserUid = user.uid;
+      this.currentUserName = await this.dataBase.getUserNameByUid(user.uid);
     }
   }
 
   loadMessages() {
-    this.messages$ = this.dataBase.getCollection(`Chats/${this.chatId}/messages`);
+    this.messages$ = this.dataBase.getCollection(`Chats/${this.chatId}/messages`).pipe(
+      switchMap(messages => 
+        // Obtener los nombres de usuario para los mensajes
+        this.dataBase.addUserNamesToMessages(messages)
+      )
+    );
   }
-
   async sendMessage() {
     try {
       if (this.messageText.trim() === '') return;
 
       await this.dataBase.addChatMessage(this.chatId, {
         senderUid: this.currentUserUid,
+        senderName: this.currentUserName,
         message: this.messageText,
         timestamp: new Date()
       });

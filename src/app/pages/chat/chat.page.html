@@ -1,4 +1,64 @@
 <ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Chat
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="none" class="chat-list">
+    <ion-item *ngFor="let message of messages$ | async" class="chat-item">
+      <ion-label class="chat-message">
+        <strong>{{ message.senderName }}:</strong> {{ message.message }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-item lines="none">
+        <ion-input placeholder="Escribe un mensaje..." [(ngModel)]="messageText" name="messageText" clearInput></ion-input>
+        <ion-button slot="end" color="primary" (click)="sendMessage()">
+          <ion-icon slot="icon-only" name="send"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content>
+
+
+<!-- <ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Chat
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="none" class="chat-list">
+    <ion-item *ngFor="let message of messages$ | async" class="chat-item">
+      <ion-label class="chat-message">
+        <strong>{{ message.senderUid }}:</strong> {{ message.message }}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-item lines="none">
+        <ion-input placeholder="Escribe un mensaje..." [(ngModel)]="messageText" name="messageText" clearInput></ion-input>
+        <ion-button slot="end" color="primary" (click)="sendMessage()">
+          <ion-icon slot="icon-only" name="send"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-toolbar>
+  </ion-footer>
+</ion-content> -->
+
+
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>
       Chat
@@ -19,4 +79,4 @@
       <ion-icon slot="icon-only" name="send"></ion-icon>
     </ion-button>
   </ion-item>
-</ion-content>
+</ion-content> -->
