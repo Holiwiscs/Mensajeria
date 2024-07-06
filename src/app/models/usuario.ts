@@ -8,5 +8,6 @@ export interface usuarioPf{
     region: number,
     correo: string, 
     uid: string,
+    rol: string
     photos: string[]
 };

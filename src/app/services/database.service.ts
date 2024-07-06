@@ -27,6 +27,7 @@ export class DatabaseService {
         "comuna": usuario.comuna,
         "region": usuario.region,
         "correo": usuario.correo,
+        "rol": usuario.rol,
         "uid": usuario.uid
       };
       await this.firestore.collection('Usuario').doc(usuario.uid).set(data);  
@@ -132,9 +133,7 @@ export class DatabaseService {
     const likeId = `${userId}_${likedUserId}`; // Ejemplo de ID personalizado
     const like = {
       userId,
-      likedUserId,
-    };
-
+      likedUserId};
     return this.firestore.collection('Likes').doc(likeId).set(like);
   }
 
@@ -145,7 +144,6 @@ export class DatabaseService {
       user1Id,
       user2Id,
     };
-
     return this.firestore.collection('Matches').doc(matchId).set(match);
   }
 
@@ -157,7 +155,6 @@ export class DatabaseService {
       userId,
       message,
     };
-
     return this.firestore.collection('Chats').doc(chatId).set(chat);
   }
 
@@ -195,27 +192,6 @@ export class DatabaseService {
 
     
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   getMatchesForUser(userId: string): Observable<any[]> {
     return this.firestore.collection('Matches', ref =>

@@ -26,8 +26,6 @@
       <h1 (click)="terminos()">Términos y condiciones</h1>
       <hr class="custom-divider">
       <h1 (click)="soporte()">Soporte</h1>
-      <hr class="custom-divider">
-      <h1>Configuración</h1>
     </ion-grid>
   </ion-content>
   <ion-button (click)="cerrarSesion()">Cerrar Sesión</ion-button>
@@ -65,6 +63,7 @@
                 <p>{{ user.edad }}</p>
                 <p>Género: {{ user.genero }}</p>
                 <p>Ubicación: {{ user.comuna }}</p>
+                <p>Usuario: {{ user.rol }}</p>
                 <p *ngFor="let descripcion of getDescripcionesByUid(user.uid)">
                   {{ descripcion.texto }}
                 </p>

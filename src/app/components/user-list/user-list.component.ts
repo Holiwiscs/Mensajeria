@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-user-list',
@@ -6,15 +8,21 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent  implements OnInit {
-
-  @Input() item: any;
-  @Output() onClick: EventEmitter<any> = new EventEmitter();
+  matches: any[] = [];
   
-  constructor() { }
+  constructor(private dataBase: DatabaseService, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadMatches();
+  }
 
-  redirect(){
-    this.onClick.emit(this.item);
+  async loadMatches() {
+    this.dataBase.getMatchesForUser(await this.dataBase.getUid()).subscribe(matches => {
+      this.matches = matches;
+    });
+  }
+
+  openChat(match: any) {
+    this.router.navigateByUrl(`/chat/${match.chatId}`);
   }
 }

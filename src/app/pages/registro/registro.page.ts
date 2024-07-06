@@ -22,7 +22,7 @@ export class RegistroPage implements OnInit {
   nombre: string ="";
   apellidos: string ="";
   nacimiento: string;
-
+  rol: string = "";
   selegenero: string="";
 
 
@@ -75,6 +75,7 @@ export class RegistroPage implements OnInit {
 
 
 
+
   calcularEdad() {
     if (!this.nacimiento) return; // Si no hay fecha de nacimiento, salir
 
@@ -103,6 +104,9 @@ export class RegistroPage implements OnInit {
       await this.helper.mostrarAlerta("Debes ingresar un apellido válido","Información");
       return;
     }
+    if(this.rol == "Dueño de casa"){
+      await this.router.navigateByUrl('propietario');
+    }
 
     if(this.nacimiento == "") {
       await this.helper.mostrarAlerta("Debes ingresar tu fecha de nacimiento","Información");
@@ -124,6 +128,7 @@ export class RegistroPage implements OnInit {
       return;
     }
 
+
     if(this.contrasena2 == "") {
       await this.helper.mostrarAlerta("Debes confirmar tu contraseña.","Información");
       return;
@@ -134,17 +139,17 @@ export class RegistroPage implements OnInit {
       return;
     } 
     
-  
+    const loading = await this.helper.MostrarCarga('Registrando...');
 
     try {
       const req = await this.auth.createUserWithEmailAndPassword(this.correo, this.contrasena2);
-  
+
       if (req) {
         console.log("Éxito al crear usuario");
-  
+
         // Enviar correo de verificación
         await req.user.sendEmailVerification();
-  
+
         // Almacenar datos en Firestore
         const id = req.user.uid;
         await this.database.agregarUsuario({
@@ -157,15 +162,29 @@ export class RegistroPage implements OnInit {
           nacimiento: this.nacimiento,
           nombre: this.nombre,
           uid: id,
+          rol: this.rol,
           photos: []
         });
-  
-        this.router.navigateByUrl('tipo-registro');
+
+        await loading.dismiss();
+        await this.helper.showtoast('Registro exitoso');
+
+        // Redireccionar según el rol
+        if (this.rol === "Dueño de casa") {
+          await loading.dismiss();
+          await this.router.navigateByUrl('propietario');
+        } else if (this.rol === "Roommie") {
+          await this.router.navigateByUrl('roommie');
+          await loading.dismiss();
+        } else {
+          await loading.dismiss();
+          console.error("Rol no reconocido:", this.rol);
+        }
       }
     } catch (error) {
-      // Manejo de errores
+      await loading.dismiss();
       console.error('Error al registrar usuario:', error);
-  
+
       if (error.code === 'auth/email-already-in-use') {
         await this.helper.mostrarAlerta("El correo electrónico ya está en uso.", "Error");
       } else if (error.code === 'auth/weak-password') {
