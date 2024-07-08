@@ -7,7 +7,7 @@ export interface usuarioPf{
     comuna: number,
     region: number,
     correo: string, 
+    rol: string,
     uid: string,
-    rol: string
     photos: string[]
 };

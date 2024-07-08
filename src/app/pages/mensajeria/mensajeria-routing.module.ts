@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: MensajeriaPage
+  },
+  {
+    path: 'chat/:id',  // Ruta para acceder a chats específicos
+    loadChildren: () => import('./chat/chat.module').then(m => m.ChatPageModule)
   }
+
 ];
 
 @NgModule({

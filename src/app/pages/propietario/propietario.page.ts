@@ -74,29 +74,29 @@ export class PropietarioPage implements OnInit {
 
 
   async registrar(){
-    if(!this.id){
+    if (!this.id) {
       console.log('User ID is not available.');
       return;
     }
+
     await this.database.agregarDescripcion({
-      texto: this.texto,  
-      vivienda: this.seleVivienda,
-      pago: this.selePago,
-      mascota: this.seleMascotas,
-      ejercicios: this.seleEjercicios,
-      alimentacion: this.seleAlimentacion,
-      fuma: this.seleCigarro,
-      comunidad: this.seleComunidad,
-      alcohol: this.seleAlcohol,
+      texto:this.texto, 
+      vivienda:this.seleVivienda, 
+      pago:this.selePago, 
+      mascota:this.seleMascotas, 
+      ejercicios:this.seleEjercicios, 
+      alimentacion:this.seleAlimentacion, 
+      fuma:this.seleCigarro, 
+      comunidad:this.seleComunidad, 
+      alcohol:this.seleAlcohol,
       uid: this.id
     });
-      this.router.navigateByUrl('menu');
-    }
 
-  async back(){
-    await this.router.navigateByUrl("tipo-registro");
+    this.router.navigateByUrl('menu');
   }
 
+
+  
 
 }
 

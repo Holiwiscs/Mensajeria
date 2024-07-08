@@ -3,10 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
@@ -34,7 +30,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/propietario/propietario.module').then( m => m.PropietarioPageModule),canActivate:[AngularFireAuthGuard]
   },
   {
-    path: 'roommie',
+    path: 'rommie',
     loadChildren: () => import('./pages/rommie/rommie.module').then( m => m.RommiePageModule),canActivate:[AngularFireAuthGuard]
   },
   {
@@ -50,14 +46,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/terminos/terminos.module').then( m => m.TerminosPageModule),canActivate:[AngularFireAuthGuard]
   },
   {
-    path: 'chat/:chatId',
-    loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatPageModule),
-    canActivate: [AngularFireAuthGuard]
-  },
-  {
     path: 'mensajeria',
     loadChildren: () => import('./pages/mensajeria/mensajeria.module').then( m => m.MensajeriaPageModule),canActivate:[AngularFireAuthGuard]
   },
+  
   
   
 

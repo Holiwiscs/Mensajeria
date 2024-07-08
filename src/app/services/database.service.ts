@@ -16,6 +16,10 @@ export class DatabaseService {
               private storage: AngularFireStorage
   ) { }
 
+  async deleteDocument(collection: string, docId: string) {
+    return this.firestore.collection(collection).doc(docId).delete();
+  }
+
 
   async agregarUsuario(usuario:usuarioPf){
       const data = {
@@ -31,8 +35,7 @@ export class DatabaseService {
         "uid": usuario.uid
       };
       await this.firestore.collection('Usuario').doc(usuario.uid).set(data);  
-    // // // await this.firestore.collection('Usuario').add(data);
-    // // // await this.firestore.collection('Usuario').get;
+
   };
 
   async agregarDescripcion(descripcion:descripcionU) {
@@ -50,7 +53,7 @@ export class DatabaseService {
 
     }
     await this.firestore.collection('Descripcion').doc(descripcion.uid).set(data);  
-    // // // await this.firestore.collection('Descripcion').add(data);
+   
     
   }
 
@@ -118,7 +121,7 @@ export class DatabaseService {
     return this.authfirebase.authState;
   }
 
-  // Método para establecer un documento
+
   async setDoc(collectionPath: string, docId: string, data: any): Promise<void> {
     try {
       await this.firestore.collection(collectionPath).doc(docId).set(data);
@@ -128,35 +131,27 @@ export class DatabaseService {
     }
   }
 
-  // Función para añadir un "like" con un ID personalizado
-  addLikeWithId(userId: string, likedUserId: string) {
-    const likeId = `${userId}_${likedUserId}`; // Ejemplo de ID personalizado
-    const like = {
-      userId,
-      likedUserId};
-    return this.firestore.collection('Likes').doc(likeId).set(like);
+
+  async addLikeWithId(userId: string, likedUserId: string) {
+    const id = this.firestore.createId();
+    await this.firestore.collection('Likes').doc(id).set({ userId, likedUserId });
   }
 
-  // Función para añadir un "match" con un ID personalizado
-  addMatchWithId(user1Id: string, user2Id: string) {
-    const matchId = `${user1Id}_${user2Id}`; // Ejemplo de ID personalizado
-    const match = {
-      user1Id,
-      user2Id,
-    };
-    return this.firestore.collection('Matches').doc(matchId).set(match);
+
+
+  async addMatchWithId(userId: string, matchedUserId: string) {
+    const id = this.firestore.createId();
+    await this.firestore.collection('Matches').doc(id).set({ userId, matchedUserId });
   }
 
-  // Función para añadir un "chat" con un ID personalizado
-  addChatWithId(matchId: string, userId: string, message: string) {
-    const chatId = `${matchId}_${new Date().getTime()}`; // Ejemplo de ID personalizado
-    const chat = {
-      matchId,
-      userId,
-      message,
-    };
-    return this.firestore.collection('Chats').doc(chatId).set(chat);
+   async addChatWithId(chatId: string, userId1: string, userId2: string) {
+    await this.firestore.collection('Chats').doc(chatId).set({
+      userIds: [userId1, userId2],
+      createdAt: new Date()
+    });
   }
+
+
 
   async getUserNameByUid(uid: string): Promise<string> {
     const userDoc = await this.firestore.collection('Usuario').doc(uid).get().toPromise();

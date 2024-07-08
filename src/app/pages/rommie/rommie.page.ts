@@ -93,11 +93,4 @@ export class RommiePage implements OnInit {
     this.router.navigateByUrl('menu');
   }
 
-
-
-
-  async back(){
-    await this.router.navigateByUrl("tipo-registro");
-  }
-
 }

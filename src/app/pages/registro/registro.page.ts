@@ -174,7 +174,7 @@ export class RegistroPage implements OnInit {
           await loading.dismiss();
           await this.router.navigateByUrl('propietario');
         } else if (this.rol === "Roommie") {
-          await this.router.navigateByUrl('roommie');
+          await this.router.navigateByUrl('rommie');
           await loading.dismiss();
         } else {
           await loading.dismiss();

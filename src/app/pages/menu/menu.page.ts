@@ -42,8 +42,9 @@ export class MenuPage implements OnInit {
   async ngOnInit() {
     console.log("Estoy en mi perfil")
     this.getUid();
-    
+   
   }
+  
 
   ngOnDestroy() {
     this.getUid();
@@ -87,27 +88,29 @@ export class MenuPage implements OnInit {
     }
   }
 
-
   touchEnd(index: number) {
     if (this.endX > 0) {
-      let finalX = (this.endX = this.startX);
+      let finalX = this.endX - this.startX;
       if (finalX > -100 && finalX < 100) {
+        // Si el deslizamiento no es suficiente, restaura la tarjeta a su posición original
         (<HTMLStyleElement>document.getElementById('card-' + index)).style.transition = '.3s';
         (<HTMLStyleElement>document.getElementById('card-' + index)).style.transform = 'translate(0px) rotate(0deg)';
         setTimeout(() => {
           (<HTMLStyleElement>document.getElementById('card-' + index)).style.transition = '0s';
         }, 350);
       } else if (finalX <= -100) {
+        // Si el deslizamiento es hacia la izquierda (rechazo), elimina la tarjeta
         (<HTMLStyleElement>document.getElementById('card-' + index)).style.transition = '1s';
         (<HTMLStyleElement>document.getElementById('card-' + index)).style.transform = 'translateX(-1000px) rotate(-30deg)';
         setTimeout(() => {
           this.users.splice(index, 1);
         }, 100);
       } else if (finalX >= 100) {
+        // Si el deslizamiento es hacia la derecha (like), maneja el like
         (<HTMLStyleElement>document.getElementById('card-' + index)).style.transition = '1s';
         (<HTMLStyleElement>document.getElementById('card-' + index)).style.transform = 'translateX(-1000px) rotate(-30deg)';
         setTimeout(() => {
-          this.handleLike(this.users[index].uid); // Maneja el like
+          this.handleLike(this.users[index].uid);
           this.users.splice(index, 1);
         }, 100);
       }
@@ -117,35 +120,6 @@ export class MenuPage implements OnInit {
       (<HTMLStyleElement>document.getElementById('accept-icon')).style.opacity = '0';
     }
   }
-  
-// // // touchEnd(index: number) {
-// // //   if (this.endX > 0) {
-// // //     let finalX = (this.endX = this.startX);
-// // //     if (finalX > -100 && finalX < 100) {
-// // //       (<HTMLStyleElement>document.getElementById('card-' + index)).style.transition = '.3s';
-// // //       (<HTMLStyleElement>document.getElementById('card-' + index)).style.transform = 'translate(0px) rotate(0deg)';
-// // //       setTimeout(() => {
-// // //         (<HTMLStyleElement>document.getElementById('card-' + index)).style.transition = '0s';
-// // //       }, 350);
-// // //     } else if (finalX <= -100) {
-// // //       (<HTMLStyleElement>document.getElementById('card-' + index)).style.transition = '1s';
-// // //       (<HTMLStyleElement>document.getElementById('card-' + index)).style.transform = 'translateX(-1000px) rotate(-30deg)';
-// // //       setTimeout(() => {
-// // //         this.users.splice(index, 1);
-// // //       }, 100);
-// // //     } else if (finalX >= 100) {
-// // //       (<HTMLStyleElement>document.getElementById('card-' + index)).style.transition = '1s';
-// // //       (<HTMLStyleElement>document.getElementById('card-' + index)).style.transform = 'translateX(-1000px) rotate(-30deg)';
-// // //       setTimeout(() => {
-// // //         this.users.splice(index, 1);
-// // //       }, 100);
-// // //     }
-// // //     this.startX = 0;
-// // //     this.endX = 0;
-// // //     (<HTMLStyleElement>document.getElementById('reject-icon')).style.opacity = '0';
-// // //     (<HTMLStyleElement>document.getElementById('accept-icon')).style.opacity = '0';
-// // //   }
-// // // }
 
   async getUid(){
     const uidd = await this.dataBase.getUid();
@@ -206,7 +180,7 @@ export class MenuPage implements OnInit {
   }
 
   async mensajeria(){
-    await this.router.navigateByUrl('chat');
+    await this.router.navigateByUrl('mensajeria');
   }
   
   async soporte(){
@@ -249,57 +223,28 @@ export class MenuPage implements OnInit {
   async handleLike(likedUserUid: string) {
     try {
       const currentUserUid = this.uid;
-  
+
       // Guardar el "like" en Firestore
       await this.dataBase.addLikeWithId(currentUserUid, likedUserUid);
-  
+
       // Verificar si hay match
       const matchSnapshot = await this.firestore.collection('Likes', ref =>
         ref.where('userId', '==', likedUserUid).where('likedUserId', '==', currentUserUid)
       ).get().toPromise();
-  
+
       if (!matchSnapshot.empty) {
         // Hay un match
         await this.dataBase.addMatchWithId(currentUserUid, likedUserUid);
-  
+
         // Crear un chat
         const chatId = this.firestore.createId();
-        await this.dataBase.addChatWithId(chatId, currentUserUid, '¡Hola! Empecemos a chatear.');
-  
+        await this.dataBase.addChatWithId(chatId, currentUserUid, likedUserUid);
+
         // Redireccionar a la página de mensajería con el chat abierto
-        this.router.navigateByUrl(`/chat/${chatId}`);
+        this.router.navigateByUrl(`/mensajeria/chat/${chatId}`);
       }
     } catch (error) {
       console.error('Error handling like:', error);
     }
   }
-
-  // // // async handleLike(likedUserUid: string) {
-  // // //   try {
-  // // //     const currentUserUid = this.uid;
-
-  // // //     // Guardar el "like" en Firestore
-  // // //     await this.dataBase.addLikeWithId(currentUserUid, likedUserUid);
-
-  // // //     // Verificar si hay match
-  // // //     const matchSnapshot = await this.firestore.collection('Likes', ref =>
-  // // //       ref.where('userId', '==', likedUserUid).where('likedUserId', '==', currentUserUid)
-  // // //     ).get().toPromise();
-
-  // // //     if (!matchSnapshot.empty) {
-  // // //       // Hay un match
-  // // //       await this.dataBase.addMatchWithId(currentUserUid, likedUserUid);
-
-  // // //       // Crear un chat
-  // // //       const chatId = this.firestore.createId();
-  // // //       await this.dataBase.addChatWithId(chatId, currentUserUid, '¡Hola! Empecemos a chatear.');
-
-  // // //       // Redireccionar a la página de mensajería con el chat abierto
-  // // //       this.router.navigateByUrl(`/chat/${chatId}`);
-  // // //     }
-  // // //   } catch (error) {
-  // // //     console.error('Error handling like:', error);
-  // // //   }
-  // // // }
-
 }

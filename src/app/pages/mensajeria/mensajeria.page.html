@@ -1,24 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Mensajería
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-<div>
-  <ion-content>
-    <ion-list *ngIf="(matches$ | async) as matches; else noMatchesTemplate">
-      <ion-item *ngFor="let match of matches">
-        <ion-label>{{ match.user2Id }}</ion-label>
-        <ion-button (click)="openChat(match.matchId)">Abrir Chat</ion-button>
-      </ion-item>
-    </ion-list>
-    
-    <ng-template #noMatchesTemplate>
-      <div class="center">
-        <p>No tienes matches aún.</p>
-      </div>
-    </ng-template>
-  </ion-content>
-</div>
+<!-- mensajeria.page.html -->
+<ion-content>
+  <app-user-list></app-user-list>
+</ion-content>
 
