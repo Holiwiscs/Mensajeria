@@ -1,16 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Roomies
-      <ion-icon name="home-outline"></ion-icon>
+    <ion-title class="toolbar-title">
+      <ion-icon (click)="back()" name="arrow-back-outline" class="toolbar-icon"></ion-icon>
+      <img src="assets/img/logo1.jpeg" alt="Logo" class="toolbar-logo">
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content  class="bg-gradient" [fullscreen]="true">
+<ion-content  [fullscreen]="true">
   <ion-grid>
     <ion-card>
-      <ion-card-header>
+      <ion-card-header class="elegant-header">
         <h1>¿Buscas un compañero de cuarto?</h1>
 
       </ion-card-header>
@@ -23,18 +23,21 @@
           <ion-textarea [(ngModel)]="texto" placeholder="Escribe aquí..." class="custom-textarea" auto-grow="true"></ion-textarea>
           <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
         </ion-item>
+        <hr class="custom-divider">
         <div class="containercheck">
           <br>
-          <h1>¿Què tipo de vivienda buscas?</h1>
-          <ion-radio-group [(ngModel)]="seleVivienda">
+          <strong><h1>¿Qué tipo de vivienda buscas?</h1></strong>
+          <br>
+          <ion-radio-group [(ngModel)]="seleVivienda"class="custom-radio-group">
             <ion-radio value="casa" labelPlacement="end">Casa</ion-radio><br>
             <ion-radio value="depto" labelPlacement="end">Departamento</ion-radio>
           </ion-radio-group>
           <br>
           <br>
+          <hr class="custom-divider">
           <h1>¿Cuánto pagarias por una habitación?</h1>
           <br>
-          <ion-radio-group [(ngModel)]="selePago">
+          <ion-radio-group [(ngModel)]="selePago" class="custom-radio-group">
             <ion-radio value="menos100" labelPlacement="end" >Menos de 100.000 </ion-radio><br>
             <ion-radio value="entre100200" labelPlacement="end" >Entre 100.001 y 200.000</ion-radio><br>
             <ion-radio value="entre200300" labelPlacement="end" >Entre 200.001 y 300.000</ion-radio><br>
@@ -43,9 +46,10 @@
           </ion-radio-group>
           <br>
           <br>
+          <hr class="custom-divider">
           <h1>¿Tienes mascotas?</h1>
           <br>
-          <ion-radio-group [(ngModel)]="seleMascotas">
+          <ion-radio-group [(ngModel)]="seleMascotas" class="custom-radio-group">
             <ion-radio value="perro" labelPlacement="end">Perro </ion-radio><br>
             <ion-radio value="gato" labelPlacement="end">Gato</ion-radio><br>
             <ion-radio value="aves" labelPlacement="end">Aves</ion-radio><br>
@@ -55,9 +59,10 @@
           </ion-radio-group>
           <br>
           <br>
+          <hr class="custom-divider">
           <h1>¿Te gusta hacer ejercicios?</h1>
           <br>
-          <ion-radio-group [(ngModel)]="seleEjercicios">
+          <ion-radio-group [(ngModel)]="seleEjercicios" class="custom-radio-group">
             <ion-radio value="siempre" labelPlacement="end">Todos los días</ion-radio><br>
             <ion-radio value="aveces" labelPlacement="end">Más de tres días a la semana</ion-radio><br>
             <ion-radio value="casiNunca" labelPlacement="end">Menos de tres días a la semana</ion-radio><br>
@@ -65,9 +70,10 @@
           </ion-radio-group>
           <br>
           <br>
+          <hr class="custom-divider">
           <h1>¿Cuáles son tus preferencias alimentarias?</h1>
           <br>
-          <ion-radio-group [(ngModel)]="seleAlimentacion">
+          <ion-radio-group [(ngModel)]="seleAlimentacion" class="custom-radio-group">
             <ion-radio value="Vegetariano" labelPlacement="end" >Vegetariano</ion-radio><br>
             <ion-radio value="Vegano" labelPlacement="end" >Vegano</ion-radio><br>
             <ion-radio value="Carnivoro" labelPlacement="end" >Carnivoro</ion-radio><br>
@@ -75,9 +81,10 @@
           </ion-radio-group>
           <br>
           <br>
+          <hr class="custom-divider">
           <h1>¿Cada cuánto tiempo fumas?</h1>
           <br>
-          <ion-radio-group [(ngModel)]="seleCigarro">
+          <ion-radio-group [(ngModel)]="seleCigarro" class="custom-radio-group">
             <ion-radio value="siempre" labelPlacement="end" >Todos los días</ion-radio><br>
             <ion-radio value="aveces" labelPlacement="end" >Más de tres días a la semana</ion-radio><br>
             <ion-radio value="casiNunca" labelPlacement="end" >Menos de tres días a la semana</ion-radio><br>
@@ -85,22 +92,27 @@
             <ion-radio value="nunca" labelPlacement="end" >No fumo</ion-radio>
           </ion-radio-group>
           <br>
+          <br>
+          <hr class="custom-divider">
           <h1>¿Perteneces a la comunidad LGTB?</h1>
           <br>
-          <ion-radio-group [(ngModel)]="seleComunidad">
+          <ion-radio-group [(ngModel)]="seleComunidad" class="custom-radio-group">
             <ion-radio value="si" labelPlacement="end" >si</ion-radio><br>
             <ion-radio value="no" labelPlacement="end">no</ion-radio>
           </ion-radio-group>
           <br>
+          <br>
+          <hr class="custom-divider">
           <h1>¿Cada cuánto tiempo consumes alcohol?</h1>
           <br>
-          <ion-radio-group [(ngModel)]="seleAlcohol">
+          <ion-radio-group [(ngModel)]="seleAlcohol" class="custom-radio-group">
             <ion-radio value="siempre" labelPlacement="end">Todos los días</ion-radio><br>
             <ion-radio value="aveces" labelPlacement="end">Más de tres días a la semana</ion-radio><br>
             <ion-radio value="casiNunca" labelPlacement="end">Menos de tres días a la semana</ion-radio><br>
             <ion-radio value="conAmigos" labelPlacement="end">Solo en eventos sociales</ion-radio><br>
             <ion-radio value="nunca" labelPlacement="end">No bebo</ion-radio>
           </ion-radio-group>
+          <hr class="custom-divider">
         </div>
       </ion-card-content>
     </ion-card>

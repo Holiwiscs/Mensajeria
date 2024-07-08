@@ -10,7 +10,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="bg-gradient" fullscreen="true">
+<ion-content  fullscreen="true">
+  <ion-grid>
+  <div class="profile-header">
+    <!-- <img src="https://i.pravatar.cc/385" alt="User Profile Picture" class="profile-image"> -->
+
+    <img [src]="info?.photos || 'assets/img/default-profile.png'" class="profile-image">
+    <ion-button fill="clear" color="light" (click)="editarFoto()">Editar Foto</ion-button>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden #fileInput>
+  </div>
+
   <div class="profile-info">
     <ion-list *ngIf="info">
       <ion-item>
@@ -94,7 +103,6 @@
     </ion-list>
   </div>
 
-  <ion-grid>
     <h1>Galería</h1>
     <div class="gallery">
       <ion-row class="gallery-row">

@@ -1,7 +1,27 @@
+
+
 h1{
     color: white;
     font-family: estres;
 }
+ion-button {
+    --background: linear-gradient(to right,#2F4073,#66A3D9);
+}
+.toolbar-logo {
+    height:40px; /* Ajusta esta altura según tus necesidades */
+    width: auto; /* Mantiene la proporción de la imagen */
+    display: block;
+    margin: 0 auto; }
+  
+.welcome-container {
+    text-align: center;
+    font-size: 15em;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+  }
 .container-profile{
     display: flex;
     flex-direction: column;

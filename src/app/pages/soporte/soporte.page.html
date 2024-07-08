@@ -1,9 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      <ion-icon  (click)="back()" name="arrow-back-outline"></ion-icon>
-      Roomies
-      <ion-icon name="home-outline"></ion-icon>
+    <ion-title class="toolbar-title">
+      <ion-icon (click)="back()" name="arrow-back-outline" class="toolbar-icon"></ion-icon>
+      <img src="assets/img/logo1.jpeg" alt="Logo" class="toolbar-logo">
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -20,7 +19,9 @@
       <ion-textarea [(ngModel)]="texto" placeholder="Escribe aquí tu solicitud." class="custom-textarea" auto-grow="true"></ion-textarea>
       <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
     </ion-item>
+    <div class="custom-border-button">
     <ion-button  color="dark" expand="block" fill="solid" (click)="solicitud()">Enviar</ion-button>
+  </div>
     <br>
 
 

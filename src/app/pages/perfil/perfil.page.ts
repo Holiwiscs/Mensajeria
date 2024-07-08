@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { finalize } from 'rxjs';
 import { descripcionU } from 'src/app/models/descripcion';
 import { usuarioPf } from 'src/app/models/usuario';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -31,7 +33,7 @@ export class PerfilPage implements OnInit {
   currentUserId: string;
   chunkedPhotos: SafeUrl[][] = [];
   uid: string;
-
+  @ViewChild('fileInput') fileInput;
 
   
 
@@ -40,7 +42,8 @@ export class PerfilPage implements OnInit {
               private database: DatabaseService,
               private auth: AngularFireAuth,
               private alertController: AlertController,
-              private helper: HelperService
+              private helper: HelperService,
+              private storage: AngularFireStorage 
              
   ) 
   {this.fotos = this.fotografiaService.fotos;
@@ -192,28 +195,7 @@ saveAtributoDescripcion(name: string, input: any){
     });
   }
 
-  // // // async uploadPhoto(event: any) {
-  // // //   const file = event.target.files[0];
-  // // //   if (file) {
-  // // //     const photoIndex = this.photos.length;
-  // // //     if (photoIndex < 6) {
-  // // //       const photoUrl = await this.database.uploadPhoto(file, this.currentUserId, photoIndex);
-  // // //       this.photos.push(photoUrl);
 
-  // // //       this.database.getDoc<any>('Usuario', this.currentUserId).subscribe(async userData => {
-  // // //         if (userData) {
-  // // //           // Si el documento existe, actualízalo
-  // // //           await this.database.updateUserProfilePhotos(this.currentUserId, this.photos);
-  // // //         } else {
-  // // //           // Si el documento no existe, créalo
-  // // //           await this.database.setDoc('Usuario', this.currentUserId, { photos: this.photos });
-  // // //         }
-  // // //       });
-  // // //     } else {
-  // // //       console.log('No puedes subir más de 6 fotos.');
-  // // //     }
-  // // //   }
-  // // // }
 
   async uploadPhoto(event: any) {
     const file = event.target.files[0];
@@ -263,7 +245,79 @@ async saveProfile() {
   async back(){
     await this.router.navigateByUrl("menu");
   }
+  async editarFoto() {
+    const alerta = await this.alertController.create({
+      cssClass: "my-custom-class",
+      header: 'Edita tu foto de perfil',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log("confirmo cancelacion");
+          }
+        }, {
+          text: 'Tomar Foto',
+          handler: () => {
+            this.tomarFoto();
+          }
+        }, {
+          text: 'Subir Foto',
+          handler: () => {
+            this.fileInput.nativeElement.click();
+          }
+        }
+      ]
+    });
+    await alerta.present();
 
+    
+  }
+  
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      this.uploadFile(file);
+    }
+  }
+  
+  uploadFile(file: File) {
+    const filePath = `profile_photos/${new Date().getTime()}_${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+  
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            this.updateUserProfilePhoto(url);
+          });
+        })
+      )
+      .subscribe();
+  }
+  updateUserProfilePhoto(photoURL: string) {
+    // Asegúrate de que info no es nulo y photos es un arreglo
+    if (!this.info) {
+      this.info = {} as usuarioPf;
+    }
+  
+    if (!Array.isArray(this.info.photos)) {
+      this.info.photos = [];
+    }
+  
+    this.info.photos.push(photoURL);
+  
+    // Actualiza la URL de la foto en Firestore
+    this.database.updateDoc('Usuario', this.uid, { photos: this.info.photos }).then(() => {
+      this.helper.showtoast("Foto de perfil actualizada con éxito");
+    });
+  }
+  
+  
 }
 
 

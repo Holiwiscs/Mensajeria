@@ -1,17 +1,18 @@
 <ion-menu side="end" contentId="main-content">
-  <ion-header>
+  <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-title>
-        Roomies
-        <ion-icon name="home-outline"></ion-icon>
-      </ion-title>
+      <ion-title><img src="assets/img/logo1.jpeg" alt="Logo" class="toolbar-logo"></ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="bg-gradient" [fullscreen]="true">
+
+
+  <ion-content [fullscreen]="true">
     <ion-grid>
       <ion-item>
         <div class="container-profile">
           <img src="https://i.pravatar.cc/385" alt="User Profile Picture">
+
+          
           <ion-label class="name">Nombre de usuario: {{ infoUser?.nombre }}</ion-label>
           <ion-label class="email">Email: {{ infoUser?.correo }}</ion-label>
         </div>
@@ -21,11 +22,11 @@
       <hr class="custom-divider">
       <h1 (click)="mensajeria()">Mensajes</h1>
       <hr class="custom-divider">
-      <h1>Inicio</h1>
-      <hr class="custom-divider">
       <h1 (click)="terminos()">Términos y condiciones</h1>
       <hr class="custom-divider">
       <h1 (click)="soporte()">Soporte</h1>
+      <hr class="custom-divider">
+
     </ion-grid>
   </ion-content>
   <ion-button (click)="cerrarSesion()">Cerrar Sesión</ion-button>
@@ -34,17 +35,16 @@
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>
-        Roomies
-        <ion-icon name="home-outline"></ion-icon>
-      </ion-title>
+    <ion-title><img src="assets/img/logo1.jpeg" alt="Logo" class="toolbar-logo"></ion-title>
       <ion-buttons slot="end">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="bg-gradient" [fullscreen]="true">
+  <ion-content [fullscreen]="true">
+    <div class="welcome-container">
     <h2>Bienvenido {{ infoUser?.nombre }}</h2>
+  </div>
     <div class="users" *ngIf="users.length > 0; else emptyTemplate">
       <div class="user" *ngFor="let user of users; let i = index;" [style.zIndex]="users.length - i"
         (touchstart)="touchStart($event)" (touchmove)="touchMove($event, i)" (touchend)="touchEnd(i)" id="{{ 'card-' + i }}">

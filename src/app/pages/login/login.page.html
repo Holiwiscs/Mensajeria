@@ -1,34 +1,51 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title class="titulo">Roomies<ion-icon name="home-outline"></ion-icon></ion-title>
+    <ion-title><img src="assets/img/logo1.jpeg" alt="Logo" class="toolbar-logo"></ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="bg-gradient"[fullscreen]="true">
+<ion-content [fullscreen]="true">
   <ion-grid>
+  
+   
   <br>
   <div class="welcome-container">
     <h1 class="welcome-title">Bienvenido a Roommie App</h1>
   </div>
   
-  <br>
-  <div class="imagen-container">
-  <div class="imagenredondeada">
-  <img src="/assets/img/logo.jpeg">
-  </div>
-</div>
-<!-- <div class="mi-elemento"> -->
-  <br>
-  <div class="usuario-contraseña">
-  <ion-input [(ngModel)]="usuario" label="Correo Electrónico:" label-placement="floating" fill="outline" placeholder="Ingrese su correo electrónico"></ion-input>
-  <br>
-  <ion-input [(ngModel)]="contrasena" type="password" label="Contraseña:" label-placement="floating" fill="outline" placeholder="Ingrese su contraseña"></ion-input>
-  <br>
 
-  <div class="custom-border-button">
-  <ion-button  color="dark" expand="block" (click)="Login()" fill="solid" >Ingresar</ion-button>
-  </div>    
- </div>
+<ion-card>
+<div class="ion-text-center ion-margin-vertical lock">
+  <ion-icon name="lock-closed"></ion-icon>
+</div>
+
+<ion-item lines="none" class="ion-margin-horizontal ion-margin-top">
+    <ion-icon slot="icon-only" name="mail-outline"></ion-icon>
+  
+  <ion-input  [(ngModel)]="usuario">
+    <div slot="label">Correo:<ion-text color="danger">*</ion-text></div>
+  </ion-input>
+</ion-item>
+
+<ion-item class="ion-margin" lines="none">
+    <ion-icon slot="icon-only" name="key-outline"></ion-icon>
+
+
+  <ion-input [(ngModel)]="contrasena" type="password">
+    <div slot="label">Contraseña: <ion-text color="danger">*</ion-text></div>
+  </ion-input>
+  
+  
+    <ion-icon slot="icon-only"></ion-icon>
+
+</ion-item>
+
+<div class="ion-margin submit" (click)="Login()">
+  <ion-button expand="block" size="large">
+    <ion-text><strong>Ingresar</strong></ion-text>
+  </ion-button>
+</div>
+
   
   <div class="registrateAqui">
     <h6 (click)="registrateAqui()"><u>Registrate aquí</u></h6>
@@ -36,6 +53,7 @@
   <div class="restContrasena">
     <h6 (click)="restContrasena()"><u>¿Olvidaste tu contraseña?</u></h6>
   </div>
-
+</ion-card>
 </ion-grid>
+
 </ion-content>

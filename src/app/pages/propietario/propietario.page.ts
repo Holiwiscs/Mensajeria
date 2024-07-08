@@ -96,7 +96,10 @@ export class PropietarioPage implements OnInit {
   }
 
 
-  
+  async back(){
+    await this.router.navigateByUrl("registro");
+  }
+
 
 }
 

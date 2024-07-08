@@ -1,6 +1,38 @@
 ion-textarea{
     border-style: solid;
 }
-ion-card{
-    font-family: estres;
-}
+
+
+.toolbar-title {
+    display: flex;
+    align-items: center;
+  }
+  
+  .toolbar-icon {
+    margin-right: 10px; 
+  }
+  .toolbar-logo {
+    height: 50px; 
+ 
+  }
+  
+
+  .custom-border-button {
+    border: 5px solid #acacac; 
+    border-radius: 10px; 
+    padding: 0px 0px; 
+    background-color: transparent; 
+    color:white; 
+    font-size: 16px; 
+    cursor: pointer; 
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s; 
+  }
+  ion-button{
+    margin: 0;
+    
+  }
+  .custom-border-button:hover {
+    background-color:#acacac; 
+    color: #ffffff;
+  }

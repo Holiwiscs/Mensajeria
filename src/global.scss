@@ -9,16 +9,88 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
  .bg-gradient {
-    --background: linear-gradient(to bottom, #000428, #004e92);
-  }
-  @font-face {
-    font-family: 'Sanse';
-    src: url('/assets/font/Sanseriffic.otf2') format('otf2'),
-         url('/assets/font/Sanseriffic.otf') format('otf')}
-   @font-face {
-      font-family: 'fuentedos';
-    src: url('/assets/font/LanterosySansSeriFont.ttf2') format('ttf2'),
-    url('/assets/font/LanterosySansSeriFont.ttf') format('ttf')}
+  --background: linear-gradient(to bottom, #000428, #004e92);
+}
+ion-content{
+--background: url('/assets/img/fondo2.jpg') no-repeat center center/cover;
+}
+
+/* global.scss */
+/* styles.css (o global.css) */
+:root {
+--background-color-light: #ffffff;
+--text-color-light: #000000;
+--background-color-dark: #121212;
+--text-color-dark: #ffffff;
+}
+
+body {
+background-color: var(--background-color-light);
+color: var(--text-color-light);
+}
+
+ion-header, ion-toolbar, ion-content, ion-title, ion-card, p, ion-button {
+background-color: var(--background-color-light);
+color: var(--text-color-light);
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+body {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+ion-header, ion-toolbar, ion-content, ion-title, ion-card, p, ion-button {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+--ion-font-family: 'Roboto', sans-serif;
+--ion-font-size: 18px; /* Tamaño de fuente base */
+}
+
+body, ion-app, ion-content {
+font-family: var(--ion-font-family) !important;
+font-size: var(--ion-font-size) !important;
+}
+
+ion-header, ion-toolbar, ion-title, ion-label, ion-button {
+font-family: var(--ion-font-family) !important;
+font-size: var(--ion-font-size) !important;
+}
+
+/* Ajustes adicionales */
+h1 {
+font-size: calc(var(--ion-font-size) * 2) !important;
+}
+
+h2 {
+font-size: calc(var(--ion-font-size) * 1.75) !important;
+}
+
+h3 {
+font-size: calc(var(--ion-font-size) * 1.5) !important;
+}
+
+h4, h5, h6, p, a {
+font-size: calc(var(--ion-font-size) * 1.25) !important;
+}
+
+
+
+@font-face {
+  font-family: 'Sanse';
+  src: url('/assets/font/Sanseriffic.otf2') format('otf2'),
+       url('/assets/font/Sanseriffic.otf') format('otf')}
+ @font-face {
+    font-family: 'fuentedos';
+  src: url('/assets/font/LanterosySansSeriFont.ttf2') format('ttf2'),
+  url('/assets/font/LanterosySansSeriFont.ttf') format('ttf')}
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
@@ -36,17 +108,17 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 /**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+* Ionic Dark Mode
+* -----------------------------------------------------
+* For more info, please see:
+* https://ionicframework.com/docs/theming/dark-mode
+*/
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
 @font-face {
-  font-family: estres;
-  src: url(/assets/font/Sanseriffic.otf);
+font-family: estres;
+src: url(/assets/font/Sanseriffic.otf);
 }
