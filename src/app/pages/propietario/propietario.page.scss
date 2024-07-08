@@ -1,25 +1,25 @@
-
-ion-textarea{
+ion-textarea {
   --background: white;
-  --color:black;
+  --color: black;
 }
 
 .toolbar-title {
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .toolbar-icon {
-margin-right: 10px; 
+  margin-right: 10px;
 }
+
 .toolbar-logo {
-height: 50px; 
-
+  height: 50px;
 }
-.containercheck{
-color:white;
 
+.containercheck {
+  color: white;
 }
+
 .custom-textarea-item {
   --highlight-color-focused: #3880ff;
   --color: #000;
@@ -52,45 +52,38 @@ ion-textarea::part(native) {
   border: 2px solid #3880ff;
 }
 
-ion-radio-group{
-  color:white;
+.custom-radio-group {
+  color: white;
+  font-size: 1.5em;
 }
+
+.custom-radio-group ion-radio {
+  font-size: 1.30em;
+  margin: 20px;
+  /* Espacio entre las opciones */
+}
+
 
 .custom-border-button {
   border: 5px solid #acacac;
-  border-radius: 10px; 
-  background-color: transparent; 
-  color:white; 
+  border-radius: 10px;
+  background-color: transparent;
+  color: white;
   font-size: 16px;
-  cursor: pointer; 
+  cursor: pointer;
   box-sizing: border-box;
-  transition: background-color 0.3s, color 0.3s; 
+  transition: background-color 0.3s, color 0.3s;
   margin: 0px;
 }
-ion-button{
+
+ion-button {
   margin: 0;
   font-family: estres;
 }
-.custom-border-button:hover {
-  background-color:#acacac; 
-  color: #ffffff; 
-}
-.elegant-header {
-  background: linear-gradient(45deg, #2F4073, #66A3D9);
-  text-align: center;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-}
 
-.elegant-header ion-card-title {
-  color: #fff;
-  font-size: 1.5em;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.custom-border-button:hover {
+  background-color: #acacac;
+  color: #ffffff;
 }
 
 .elegant-header {
@@ -118,63 +111,197 @@ ion-button{
   margin-bottom: 10px;
 }
 
-.custom-textarea-item {
-  --highlight-color-focused: #3880ff;
-  --color: #000;
-  --background: #f0f0f0;
-  --padding-start: 10px;
-  --padding-end: 10px;
-}
-
-.custom-textarea {
-  --padding-top: 10px;
-  --padding-bottom: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  font-family: 'Arial', sans-serif;
-  font-size: 16px;
-}
-
-ion-textarea::part(native) {
-  padding: 10px;
-}
-
-.custom-textarea-item.ion-focused {
-  --highlight-color-focused: #3dc2ff;
-  --background: #e0f7fa;
-}  
-h1{color:white}
-.custom-radio-group ion-radio {
-font-size: 1.5em; 
-}
-
-.containercheck h1, .custom-radio-group ion-radio {
-font-size: 1.9em;
-}
-.custom-border-button {
-border: 5px solid #acacac; 
-border-radius: 10px; 
-padding: 0px 0px; 
-background-color: transparent; 
-color:white; 
-font-size: 16px; 
-cursor: pointer; 
-box-sizing: border-box;
-transition: background-color 0.3s, color 0.3s; 
-margin: 0px;
-}
-ion-button{
-margin: 0;
-
-}
-.custom-border-button:hover {
-background-color:#acacac; 
-color: #ffffff; 
-}
 .custom-divider {
-border: 0;
-height: 1px;
-background: #ccc; 
-margin: 16px 0; 
+  border: 0;
+  height: 1px;
+  background: #ccc;
+  margin: 16px 0;
 }
+
+h1 {
+  color: white;
+}
+
+
+
+
+// ion-textarea{
+//   --background: white;
+//   --color:black;
+// }
+
+// .toolbar-title {
+// display: flex;
+// align-items: center;
+// }
+
+// .toolbar-icon {
+// margin-right: 10px; 
+// }
+// .toolbar-logo {
+// height: 50px; 
+
+// }
+// .containercheck{
+// color:white;
+
+// }
+// .custom-textarea-item {
+//   --highlight-color-focused: #3880ff;
+//   --color: #000;
+//   --background: #f0f0f0;
+//   --padding-start: 10px;
+//   --padding-end: 10px;
+// }
+
+// .custom-textarea {
+//   --padding-top: 10px;
+//   --padding-bottom: 10px;
+//   border-radius: 10px;
+//   border: 1px solid #ccc;
+//   background-color: #fff;
+//   font-family: 'Arial', sans-serif;
+//   font-size: 16px;
+// }
+
+// ion-textarea::part(native) {
+//   padding: 10px;
+// }
+
+// .custom-textarea-item.ion-focused {
+//   --highlight-color-focused: #3dc2ff;
+//   --background: #e0f7fa;
+// }
+
+// .custom-textarea:focus {
+//   outline: none;
+//   border: 2px solid #3880ff;
+// }
+
+// ion-radio-group{
+//   color:white;
+// }
+
+// .custom-border-button {
+//   border: 5px solid #acacac;
+//   border-radius: 10px; 
+//   background-color: transparent; 
+//   color:white; 
+//   font-size: 16px;
+//   cursor: pointer; 
+//   box-sizing: border-box;
+//   transition: background-color 0.3s, color 0.3s; 
+//   margin: 0px;
+// }
+// ion-button{
+//   margin: 0;
+//   font-family: estres;
+// }
+// .custom-border-button:hover {
+//   background-color:#acacac; 
+//   color: #ffffff; 
+// }
+// .elegant-header {
+//   background: linear-gradient(45deg, #2F4073, #66A3D9);
+//   text-align: center;
+//   padding: 20px;
+//   border-radius: 10px;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+//   margin-bottom: 20px;
+// }
+
+// .elegant-header ion-card-title {
+//   color: #fff;
+//   font-size: 1.5em;
+//   margin: 0;
+//   text-transform: uppercase;
+//   letter-spacing: 2px;
+//   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+// }
+
+// .elegant-header {
+//   background: linear-gradient(45deg, #2F4073, #66A3D9);
+//   text-align: center;
+//   padding: 20px;
+//   border-radius: 10px;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+//   margin-bottom: 20px;
+// }
+
+// .elegant-header ion-card-title {
+//   color: #fff;
+//   font-size: 1.5em;
+//   margin: 0;
+//   text-transform: uppercase;
+//   letter-spacing: 2px;
+//   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+// }
+
+// .section-title {
+//   font-size: 1.2em;
+//   color: #2F4073;
+//   margin-top: 20px;
+//   margin-bottom: 10px;
+// }
+
+// .custom-textarea-item {
+//   --highlight-color-focused: #3880ff;
+//   --color: #000;
+//   --background: #f0f0f0;
+//   --padding-start: 10px;
+//   --padding-end: 10px;
+// }
+
+// .custom-textarea {
+//   --padding-top: 10px;
+//   --padding-bottom: 10px;
+//   border-radius: 10px;
+//   border: 1px solid #ccc;
+//   background-color: #fff;
+//   font-family: 'Arial', sans-serif;
+//   font-size: 16px;
+// }
+
+// ion-textarea::part(native) {
+//   padding: 10px;
+// }
+
+// .custom-textarea-item.ion-focused {
+//   --highlight-color-focused: #3dc2ff;
+//   --background: #e0f7fa;
+// }  
+// h1{color:white}
+// .custom-radio-group ion-radio {
+// font-size: 1.5em; 
+// gap: 10px;
+// }
+
+// .containercheck h1, .custom-radio-group ion-radio {
+// font-size: 1.9em;
+// }
+// .custom-border-button {
+// border: 5px solid #acacac; 
+// border-radius: 10px; 
+// padding: 0px 0px; 
+// background-color: transparent; 
+// color:white; 
+// font-size: 16px; 
+// cursor: pointer; 
+// box-sizing: border-box;
+// transition: background-color 0.3s, color 0.3s; 
+// margin: 0px;
+// }
+// ion-button{
+// margin: 0;
+
+// }
+// .custom-border-button:hover {
+// background-color:#acacac; 
+// color: #ffffff; 
+// }
+// .custom-divider {
+// border: 0;
+// height: 1px;
+// background: #ccc; 
+// margin: 16px 0; 
+// }

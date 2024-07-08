@@ -1,21 +1,58 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/mensajeria"></ion-back-button>
+    </ion-buttons>
     <ion-title>Chat</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let message of messages$ | async">
+  <div class="chat-list">
+    <ion-item *ngFor="let message of messages$ | async" [class.own-message]="message.senderId === currentUserId" [class.other-message]="message.senderId !== currentUserId">
+      <ion-avatar slot="start" *ngIf="message.senderId !== currentUserId">
+        <img src="https://i.pravatar.cc/385?img=11" alt="User Picture">
+      </ion-avatar>
+      <ion-avatar slot="end" *ngIf="message.senderId === currentUserId">
+        <img src="https://i.pravatar.cc/385?img=10" alt="User Picture">
+      </ion-avatar>
       <ion-label>
         <strong>{{ message.senderName }}:</strong> {{ message.message }}
       </ion-label>
     </ion-item>
-  </ion-list>
-  <ion-item>
-    <ion-input [(ngModel)]="newMessage" placeholder="Escribe un mensaje..." name="newMessage"></ion-input>
+  </div>
+  <div class="message-input">
+    <ion-input [(ngModel)]="newMessage" placeholder="Escribe un mensaje..."></ion-input>
     <ion-button (click)="sendMessage(newMessage)" fill="clear">
       <ion-icon name="send"></ion-icon>
     </ion-button>
-  </ion-item>
+  </div>
 </ion-content>
+
+
+
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/mensajeria"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="chat-list">
+    <ion-item *ngFor="let message of messages$ | async" [class.own-message]="message.senderId === currentUserId" [class.other-message]="message.senderId !== currentUserId">
+      <ion-label>
+        <strong>{{ message.senderName }}:</strong> {{ message.message }}
+      </ion-label>
+    </ion-item>
+  </div>
+  <div class="message-input">
+    <ion-input [(ngModel)]="newMessage" placeholder="Escribe un mensaje..."></ion-input>
+    <ion-button (click)="sendMessage(newMessage)" fill="clear">
+      <ion-icon name="send"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content> -->
+

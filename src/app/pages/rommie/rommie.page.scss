@@ -1,81 +1,81 @@
-
 ion-textarea{
-    --background: white;
-    font-family: estres;
+  --background: white;
+  font-family: estres;
 }
 .containercheck{
-    color:white;
-    font-family: estres;
+  color:white;
+  font-family: estres;
 }
 
-
+ion-radio{
+    font-size: 2em;
+}
 
 .custom-textarea-item {
-    --highlight-color-focused: #3880ff;
-    --color: #000;
-    --background: #f0f0f0;
-    --padding-start: 10px;
-    --padding-end: 10px;
-  }
-  
-  .custom-textarea {
-    --padding-top: 10px;
-    --padding-bottom: 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    font-family: estres;
-    font-size: 16px;
-  }
-  
-  ion-textarea::part(native) {
-    padding: 10px;
-  }
-  
-  .custom-textarea-item.ion-focused {
-    --highlight-color-focused: #3dc2ff;
-    --background: #e0f7fa;
-  }
-  
-  .custom-textarea:focus {
-    outline: none;
-    border: 2px solid #3880ff;
-  }
-  h1{
-    color:white;
-    font-family: estres;
-  }
-  
-  ion-radio-group{
-    color: white;
-    font-family: estres;
-  }
-  ion-card{
-    font-family: estres;
+  --highlight-color-focused: #3880ff;
+  --color: #000;
+  --background: #f0f0f0;
+  --padding-start: 10px;
+  --padding-end: 10px;
+}
 
-  }
-  ion-button{
-    font-family: estres;
-  }
+.custom-textarea {
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-family: estres;
+  font-size: 16px;
+}
 
-  .custom-border-button {
-    border: 5px solid #acacac; /* Cambia el color y grosor del borde según tu necesidad */
-    border-radius: 10px; /* Ajusta el radio del borde si es necesario */
-    padding: 0px 0px; /* Ajusta el padding para que el botón tenga un buen tamaño */
-    background-color: transparent; /* Para hacer el fondo del botón transparente */
-    color:white; /* Cambia el color del texto del botón si es necesario */
-    font-size: 16px; /* Ajusta el tamaño del texto */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    box-sizing: border-box;
-    transition: background-color 0.3s, color 0.3s; /* Añade una transición suave */
-    margin: 0px;
-  }
-  ion-button{
-    margin: 0;
-    font-family: estres;
-  }
-  .custom-border-button:hover {
-    background-color:#acacac; /* Cambia el color de fondo al pasar el mouse */
-    color: #ffffff; /* Cambia el color del texto al pasar el mouse */
-  }
-  
+ion-textarea::part(native) {
+  padding: 10px;
+}
+
+.custom-textarea-item.ion-focused {
+  --highlight-color-focused: #3dc2ff;
+  --background: #e0f7fa;
+}
+
+.custom-textarea:focus {
+  outline: none;
+  border: 2px solid #3880ff;
+}
+h1{
+  color:white;
+  font-family: estres;
+}
+
+ion-radio-group{
+  color: white;
+  font-family: estres;
+}
+ion-card{
+  font-family: estres;
+
+}
+ion-button{
+  font-family: estres;
+}
+
+.custom-border-button {
+  border: 5px solid #acacac; /* Cambia el color y grosor del borde según tu necesidad */
+  border-radius: 10px; /* Ajusta el radio del borde si es necesario */
+  padding: 0px 0px; /* Ajusta el padding para que el botón tenga un buen tamaño */
+  background-color: transparent; /* Para hacer el fondo del botón transparente */
+  color:white; /* Cambia el color del texto del botón si es necesario */
+  font-size: 16px; /* Ajusta el tamaño del texto */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  box-sizing: border-box;
+  transition: background-color 0.3s, color 0.3s; /* Añade una transición suave */
+  margin: 0px;
+}
+ion-button{
+  margin: 0;
+  font-family: estres;
+}
+.custom-border-button:hover {
+  background-color:#acacac; /* Cambia el color de fondo al pasar el mouse */
+  color: #ffffff; /* Cambia el color del texto al pasar el mouse */
+}

@@ -161,6 +161,8 @@ export class DatabaseService {
     }
     return 'Unknown';
   }
+  
+  
 
   async addChatMessage(chatId: string, message: any): Promise<void> {
     try {
@@ -193,6 +195,20 @@ export class DatabaseService {
       ref.where('user1Id', '==', userId).where('user2Id', '==', userId)
     ).valueChanges();
   }
+
+
+  async getUserNamesByUids(uids: string[]): Promise<string[]> {
+    const userNames = await Promise.all(uids.map(async uid => {
+      const userDoc = await this.firestore.collection('Usuario').doc(uid).get().toPromise();
+      if (userDoc.exists) {
+        const userData = userDoc.data() as usuarioPf;
+        return userData.nombre;
+      }
+      return 'Unknown';
+    }));
+    return userNames;
+  }
+  
   
 
 }
